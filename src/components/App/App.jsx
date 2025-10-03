@@ -1,33 +1,35 @@
 import { useState, useEffect } from "react";
 import "./App.css";
+import { Routes, Route } from "react-router-dom";
 
 import RegisterModal from "../RegisterModal/RegisterModal";
 import LoginModal from "../LoginModal/LoginModal.jsx";
-import RegisterSuccessModal from "../RegisterSuccessModal/RegisterSuccessModal.jsx"
+import RegisterSuccessModal from "../RegisterSuccessModal/RegisterSuccessModal.jsx";
 import { checkToken, authorize, register } from "../../utils/auth.js";
 import { getSearchResult } from "../../utils/newsAPI.js";
-import { keywordContext } from "../../contexts/keywordContext.js"
-import { hasSearchedContext } from "../../contexts/hasSearchedContext.js"
+import { keywordContext } from "../../contexts/keywordContext.js";
+import { hasSearchedContext } from "../../contexts/hasSearchedContext.js";
 import { currentUserContext } from "../../contexts/currentUserContext.js";
 import { savedArticlesContext } from "../../contexts/savedArticlesContext";
 import { currentPageContext } from "../../contexts/currentPageContext";
-import {searchResultContext} from "../../contexts/searchResultContext.js"
+import { searchResultContext } from "../../contexts/searchResultContext.js";
 import Main from "../Main/Main.jsx";
 import {
   getSavedArticles,
   removeSavedArticle,
   addSavedArticle,
 } from "../../utils/savedArticlesApi.js";
+import SavedNews from "../SavedNews/SavedNews";
 function App() {
-     const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [searchResult, setSearchResult] = useState([]);
- 
-  const [hasSearched, setHasSearched] = useState("false")
-  const [searchError, setSearchError]=useState("false")
+
+  const [hasSearched, setHasSearched] = useState("false");
+  const [searchError, setSearchError] = useState("false");
   const [keyWord, setKeyWord] = useState("");
   const [currentPage, setCurrentPage] = useState("");
-   const [savedArticles, setSavedArticles] = useState([]);
+  const [savedArticles, setSavedArticles] = useState([]);
   const [activeModal, setActiveModal] = useState("");
   const [currentUser, setCurrentUser] = useState({
     name: "",
@@ -35,22 +37,21 @@ function App() {
     _id: "",
   });
 
-    const handleSearch = (keyWord) => {
+  const handleSearch = (keyWord) => {
     setKeyWord(keyWord);
-  
+
     setIsLoading(true);
     getSearchResult(keyWord)
       .then((res) => {
         console.log(res);
         setSearchResult(res.articles);
         setHasSearched(true);
-       
+
         setSearchError(false);
-         
       })
       .catch((error) => {
         console.log(error);
-         setIsLoading(false);
+        setIsLoading(false);
         setSearchError(true);
       })
       .finally(() => {
@@ -58,22 +59,22 @@ function App() {
       });
   };
 
-   const handleRegisterModalClick = () => {
+  const handleRegisterModalClick = () => {
     setActiveModal("sign-up");
   };
 
-   const handleSignInModalClick = () => {
+  const handleSignInModalClick = () => {
     setActiveModal("sign-in");
   };
 
-    const handleSuccessModal = () => {
+  const handleSuccessModal = () => {
     setActiveModal("success");
   };
-   const onClose = () => {
+  const onClose = () => {
     setActiveModal("");
   };
 
-   const handleLogout = () => {
+  const handleLogout = () => {
     setIsLoggedIn(false);
   };
 
@@ -87,14 +88,13 @@ function App() {
         });
         setIsLoggedIn(false);
         handleSuccessModal();
-        
       })
       .catch((err) => {
         console.log(err);
       });
   };
 
-    const handleSignIn = ({ email, password }) => {
+  const handleSignIn = ({ email, password }) => {
     authorize({ email, password })
       .then(() => {
         checkToken()
@@ -115,9 +115,8 @@ function App() {
         console.log(err);
       });
   };
- 
 
-   const handleRemoveArticle = ({ newsData }) => {
+  const handleRemoveArticle = ({ newsData }) => {
     removeSavedArticle(newsData)
       .then(() => {
         const unsavedNewsArticles = savedArticles.filter(
@@ -130,8 +129,7 @@ function App() {
       });
   };
 
-
-    const handleSaveArticle = ({ newsData, keyword }) => {
+  const handleSaveArticle = ({ newsData, keyword }) => {
     if (!savedArticles.find((article) => article.link === newsData.url)) {
       addSavedArticle(newsData, keyword)
         .then((res) => {
@@ -161,9 +159,8 @@ function App() {
         .catch((err) => console.error(err));
     }
   };
-  
+
   useEffect(() => {
-  
     checkToken()
       .then((res) => {
         if (res) {
@@ -180,9 +177,7 @@ function App() {
       .catch((err) => {
         console.log(err);
       })
-      .finally(() => {
-       
-      });
+      .finally(() => {});
   }, [isLoggedIn]);
 
   useEffect(() => {
@@ -197,7 +192,7 @@ function App() {
     };
   }, []);
 
-    useEffect(() => {
+  useEffect(() => {
     const handleOverlayClick = (e) => {
       if (e.target.classList.contains("modal")) {
         onClose();
@@ -207,71 +202,81 @@ function App() {
     return () => {
       document.removeEventListener("click", handleOverlayClick);
     };
-    }, []);
-  
+  }, []);
+
   return (
-    <hasSearchedContext.Provider value={{hasSearched, setHasSearched}}>
+    <hasSearchedContext.Provider value={{ hasSearched, setHasSearched }}>
       <keywordContext.Provider value={{ keyWord, setKeyWord }}>
         <currentUserContext.Provider value={{ isLoggedIn, currentUser }}>
-          <savedArticlesContext.Provider value={{ savedArticles, setSavedArticles }}>
-            <currentPageContext.Provider value={{ currentPage, setCurrentPage }}>
+          <savedArticlesContext.Provider
+            value={{ savedArticles, setSavedArticles }}
+          >
+            <currentPageContext.Provider
+              value={{ currentPage, setCurrentPage }}
+            >
               <searchResultContext.Provider
-                value={{ searchResult, setSearchResult }}>
-                
-             
-           <div className="page">
-      <div className="page__content">
-   
-                                          <Main
-                  handleSearch={handleSearch}
-                   onLoginClick={handleSignInModalClick}
-                  onLogout={handleLogout}
-                  // /*the above is for headers */
+                value={{ searchResult, setSearchResult }}
+              >
+                <div className="page">
+                  <div className="page__content">
+                    <Routes>
+                      <Route
+                        path="/"
+                        element={
+                          <Main
+                            handleSearch={handleSearch}
+                            onLoginClick={handleSignInModalClick}
+                            onLogout={handleLogout}
                             searchError={searchError}
                             isLoading={isLoading}
                             handleRemoveArticle={handleRemoveArticle}
                             handleSaveArticle={handleSaveArticle}
-                           
                             onRegisterClick={handleRegisterModalClick}
                           />
-        <RegisterModal
-          isOpen={activeModal === "sign-up"}
-          onClose={onClose}
-          onRegister={handleSignUp}
-          title="Sign up"
-          
-          onLoginClick={handleSignInModalClick}
-          onRegisterClick={handleRegisterModalClick}
-         
-          //  onRegister={handleSignUp}
-        />
-        <LoginModal
-         isOpen={activeModal === "sign-in"}
-          onClose={onClose}
-         onLogIn={handleSignIn}
-          title="Sign in"
-            onLoginClick={handleSignInModalClick}
-          onRegisterClick={handleRegisterModalClick}
-        />
-          <RegisterSuccessModal
+                        }
+                      />
+
+                      <Route
+                        path="/saved-news"
+                        element={
+                          <SavedNews
+                            handleRemoveArticle={handleRemoveArticle}
+                          />
+                        }
+                      />
+                    </Routes>
+
+                    <RegisterModal
+                      isOpen={activeModal === "sign-up"}
+                      onClose={onClose}
+                      onRegister={handleSignUp}
+                      title="Sign up"
+                      onLoginClick={handleSignInModalClick}
+                      onRegisterClick={handleRegisterModalClick}
+
+                      //  onRegister={handleSignUp}
+                    />
+                    <LoginModal
+                      isOpen={activeModal === "sign-in"}
+                      onClose={onClose}
+                      onLogIn={handleSignIn}
+                      title="Sign in"
+                      onLoginClick={handleSignInModalClick}
+                      onRegisterClick={handleRegisterModalClick}
+                    />
+                    <RegisterSuccessModal
                       onClose={onClose}
                       isOpen={activeModal === "success"}
                       onLoginClick={handleSignInModalClick}
-                        
-                       
-                   
-            />
-            
-      </div>
+                    />
+                  </div>
                 </div>
-                 </searchResultContext.Provider>
-              </currentPageContext.Provider>
-            </savedArticlesContext.Provider>
-      </currentUserContext.Provider>
-    </keywordContext.Provider>
+              </searchResultContext.Provider>
+            </currentPageContext.Provider>
+          </savedArticlesContext.Provider>
+        </currentUserContext.Provider>
+      </keywordContext.Provider>
     </hasSearchedContext.Provider>
-  
   );
 }
 export default App;
- 

@@ -1,49 +1,41 @@
-import './SearchForm.css'
+import "./SearchForm.css";
 // import { useEffect } from 'react';
 
 import { useContext } from "react";
 import { keywordContext } from "../../contexts/keyWordContext";
 import { hasSearchedContext } from "../../contexts/hasSearchedContext";
 
-function SearchForm({handleSearch}) {
-  
-const { keyWord, setKeyWord } = useContext(keywordContext);
+function SearchForm({ handleSearch }) {
+  const { keyWord, setKeyWord } = useContext(keywordContext);
   const { setHasSearched } = useContext(hasSearchedContext);
 
- const handleSubmit = (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     handleSearch(keyWord);
     setHasSearched(true); // Update the hasSearched context
   };
-   const handleKeyWord = (event) => {
+  const handleKeyWord = (event) => {
     setKeyWord(event.target.value);
   };
   return (
-    <div  className="search-form">
+    <div className="search-form">
       <form className="search-form__container" onSubmit={handleSubmit}>
         <div className="search-form__field">
           <input
             className="search-form__input"
-        placeholder="Enter topic"
-         type="text"
+            placeholder="Enter topic"
+            type="text"
             id="search"
             value={keyWord}
-             onChange={handleKeyWord}
-     
+            onChange={handleKeyWord}
             required
-          ></input>
-          <button
-            type="submit"
-            className="search-form__button"
-      
-          >
+          />
+          <button type="submit" className="search-form__button">
             Search
           </button>
         </div>
-
-        </form>
+      </form>
     </div>
-  
-  )
+  );
 }
 export default SearchForm;

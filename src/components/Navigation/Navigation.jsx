@@ -1,9 +1,10 @@
 import "./Navigation.css";
-
+import { useContext } from "react";
 import logoutWhite from "../../assets/logout_white.svg";
-function Navigation({isLoggedIn, onLoginClick, onLogout, currentUser}) {
+import { currentUserContext } from "../../contexts/currentUserContext";
+function Navigation({ onLoginClick, onLogout, }) {
 
-
+ const {currentUser , isLoggedIn } = useContext(currentUserContext);
 
 
   return (

@@ -1,20 +1,63 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
-import Header from "../Header/Header";
-import About from "../About/About.jsx";
+
 import RegisterModal from "../RegisterModal/RegisterModal";
 import LoginModal from "../LoginModal/LoginModal.jsx";
 import RegisterSuccessModal from "../RegisterSuccessModal/RegisterSuccessModal.jsx"
 import { checkToken, authorize, register } from "../../utils/auth.js";
+import { getSearchResult } from "../../utils/newsAPI.js";
+import { keywordContext } from "../../contexts/keywordContext.js"
+import { hasSearchedContext } from "../../contexts/hasSearchedContext.js"
+import { currentUserContext } from "../../contexts/currentUserContext.js";
+import { savedArticlesContext } from "../../contexts/savedArticlesContext";
+import { currentPageContext } from "../../contexts/currentPageContext";
+import {searchResultContext} from "../../contexts/searchResultContext.js"
+import Main from "../Main/Main.jsx";
+import {
+  getSavedArticles,
+  removeSavedArticle,
+  addSavedArticle,
+} from "../../utils/savedArticlesApi.js";
 function App() {
+     const [isLoading, setIsLoading] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
+  const [searchResult, setSearchResult] = useState([]);
+ 
+  const [hasSearched, setHasSearched] = useState("false")
+  const [searchError, setSearchError]=useState("false")
+  const [keyWord, setKeyWord] = useState("");
+  const [currentPage, setCurrentPage] = useState("");
+   const [savedArticles, setSavedArticles] = useState([]);
   const [activeModal, setActiveModal] = useState("");
   const [currentUser, setCurrentUser] = useState({
     name: "",
     email: "",
     _id: "",
   });
+
+    const handleSearch = (keyWord) => {
+    setKeyWord(keyWord);
+  
+    setIsLoading(true);
+    getSearchResult(keyWord)
+      .then((res) => {
+        console.log(res);
+        setSearchResult(res.articles);
+        setHasSearched(true);
+       
+        setSearchError(false);
+         
+      })
+      .catch((error) => {
+        console.log(error);
+         setIsLoading(false);
+        setSearchError(true);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  };
+
    const handleRegisterModalClick = () => {
     setActiveModal("sign-up");
   };
@@ -73,15 +116,124 @@ function App() {
       });
   };
  
+
+   const handleRemoveArticle = ({ newsData }) => {
+    removeSavedArticle(newsData)
+      .then(() => {
+        const unsavedNewsArticles = savedArticles.filter(
+          (article) => article._id !== newsData._id
+        );
+        setSavedArticles(unsavedNewsArticles);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+
+    const handleSaveArticle = ({ newsData, keyword }) => {
+    if (!savedArticles.find((article) => article.link === newsData.url)) {
+      addSavedArticle(newsData, keyword)
+        .then((res) => {
+          setSavedArticles([res, ...savedArticles]);
+          const savedArticlesId = res._id;
+          const newArticle = { ...newsData, _id: savedArticlesId };
+          const newSearchResult = searchResult.map((article) =>
+            article.url === newsData.url ? newArticle : article
+          );
+          setSearchResult(newSearchResult);
+        })
+        .catch((err) => console.error(err));
+    } else if (savedArticles.some((article) => article.link === newsData.url)) {
+      removeSavedArticle(newsData)
+        .then(() => {
+          const unsaveNewsArticles = savedArticles.filter(
+            (article) => article._id !== newsData._id
+          );
+          setSavedArticles(unsaveNewsArticles);
+
+          const newArticle = { ...newsData, _id: "" };
+          const newSearchResult = searchResult.map((article) =>
+            article.url === newsData.url ? newArticle : article
+          );
+          setSearchResult(newSearchResult);
+        })
+        .catch((err) => console.error(err));
+    }
+  };
+  
+  useEffect(() => {
+  
+    checkToken()
+      .then((res) => {
+        if (res) {
+          setCurrentUser(res.data);
+          getSavedArticles()
+            .then((res) => {
+              setSavedArticles(res);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+       
+      });
+  }, [isLoggedIn]);
+
+  useEffect(() => {
+    const handleEscClose = (e) => {
+      if (e.key === "Escape") {
+        onClose();
+      }
+    };
+    document.addEventListener("keydown", handleEscClose);
+    return () => {
+      document.removeEventListener("keydown", handleEscClose);
+    };
+  }, []);
+
+    useEffect(() => {
+    const handleOverlayClick = (e) => {
+      if (e.target.classList.contains("modal")) {
+        onClose();
+      }
+    };
+    document.addEventListener("click", handleOverlayClick);
+    return () => {
+      document.removeEventListener("click", handleOverlayClick);
+    };
+    }, []);
+  
   return (
-    <div className="page">
+    <hasSearchedContext.Provider value={{hasSearched, setHasSearched}}>
+      <keywordContext.Provider value={{ keyWord, setKeyWord }}>
+        <currentUserContext.Provider value={{ isLoggedIn, currentUser }}>
+          <savedArticlesContext.Provider value={{ savedArticles, setSavedArticles }}>
+            <currentPageContext.Provider value={{ currentPage, setCurrentPage }}>
+              <searchResultContext.Provider
+                value={{ searchResult, setSearchResult }}>
+                
+             
+           <div className="page">
       <div className="page__content">
-        <Header isLoggedIn={isLoggedIn}
-          onLoginClick={handleSignInModalClick}
-          onLogout={handleLogout}
-          currentUser={currentUser}
-        />
-        <About />
+   
+                                          <Main
+                  handleSearch={handleSearch}
+                   onLoginClick={handleSignInModalClick}
+                  onLogout={handleLogout}
+                  // /*the above is for headers */
+                            searchError={searchError}
+                            isLoading={isLoading}
+                            handleRemoveArticle={handleRemoveArticle}
+                            handleSaveArticle={handleSaveArticle}
+                           
+                            onRegisterClick={handleRegisterModalClick}
+                          />
         <RegisterModal
           isOpen={activeModal === "sign-up"}
           onClose={onClose}
@@ -108,9 +260,17 @@ function App() {
                         
                        
                    
-                    />
+            />
+            
       </div>
-    </div>
+                </div>
+                 </searchResultContext.Provider>
+              </currentPageContext.Provider>
+            </savedArticlesContext.Provider>
+      </currentUserContext.Provider>
+    </keywordContext.Provider>
+    </hasSearchedContext.Provider>
+  
   );
 }
 export default App;

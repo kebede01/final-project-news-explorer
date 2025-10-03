@@ -2,15 +2,15 @@ import "./Header.css";
 import Navigation from "../Navigation/Navigation";
 import SearchForm from "../SearchForm/SearchForm";
 
-function Header({ isLoggedIn, onLoginClick, onLogout , currentUser}) {
+function Header({  onLoginClick, onLogout , handleSearch}) {
   return (
     <>
       <header className="header">
         <div className="header__nav-container">
-          <Navigation isLoggedIn={isLoggedIn}
+          <Navigation 
             onLoginClick={onLoginClick}
             onLogout={onLogout}
-            currentUser={currentUser}
+            
           />
         </div>
         <div className="header__text-container">
@@ -20,7 +20,7 @@ function Header({ isLoggedIn, onLoginClick, onLogout , currentUser}) {
             account.
           </h2>
         </div>
-        <SearchForm />
+        <SearchForm handleSearch={handleSearch}/>
       </header>
     </>
   );

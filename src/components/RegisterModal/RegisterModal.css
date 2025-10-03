@@ -1,0 +1,87 @@
+.register-modal__register-button {
+  background-color: #2f71e5;
+  padding: 20px 115px;
+  border: 1px;
+  border-radius: 50px;
+  color: #fff;
+  font-size: 18px;
+  cursor: pointer;
+  opacity: 100%;
+  transition: 0.25s ease-in-out;
+  width: 358px;
+  height: 64px;
+  margin-left: 35px;
+  font-family: "Roboto", Arial, sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  line-height: 24px;
+}
+
+.register-modal__register-button:hover {
+  background-color: #e8e8e8;
+}
+
+.register-modal__start-button{
+  color: #2f71e5;
+  border: none;
+  cursor: pointer;
+  background: none;
+  font-size: 14px;
+  opacity: 100%;
+  transition: 0.25s ease-in-out;
+  padding: 0;
+  margin-top: 20px;
+  font-family: "Inter", Arial, sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+}
+
+.register-modal__start-button:hover {
+  opacity: 60%;
+}
+
+@media screen and (max-width: 768px){
+.register-modal__register-button{
+ max-width: 280px;
+    height: 64px;
+    font-size: 16px;
+    margin-top: 20px;
+    padding: 20px;
+
+  }
+
+ .register-modal__start-button {
+    font-size: 12px;
+    margin-top: 15px;
+    max-width: 280px;
+  }
+}
+
+@media screen and (max-width: 320px){
+    /* .modal{
+    max-width: 250px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+  } */
+
+    .register-modal__start-button {
+    font-size: 16px;
+    margin-top: 15px;
+    max-width: 200px;
+   padding: 10px;
+   margin-left: 15px;
+  }
+ .register-modal__register-button {
+    max-width: 200px;
+    height: 64px;
+    font-size: 16px;
+    margin-top: 20px;
+    padding: 20px;
+    margin-left: 15px;
+  }
+}
+
+
+
+

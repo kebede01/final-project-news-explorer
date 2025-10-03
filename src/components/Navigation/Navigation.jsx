@@ -1,7 +1,7 @@
 import "./Navigation.css";
 
 import logoutWhite from "../../assets/logout_white.svg";
-function Navigation({isLoggedIn}) {
+function Navigation({isLoggedIn, onLoginClick, onLogout, currentUser}) {
 
 
 
@@ -44,8 +44,9 @@ function Navigation({isLoggedIn}) {
 
           {isLoggedIn ? (
             <button
-              className="navigation__button navigation__button--logged-in" >
-              <span className="navigation__username">Elise</span>
+              className="navigation__button navigation__button--logged-in"
+            onClick={onLogout}>
+              <span className="navigation__username">{ currentUser.name}</span>
               <img
                 src={ logoutWhite}
                 alt="logout"
@@ -54,7 +55,8 @@ function Navigation({isLoggedIn}) {
             </button>
           ) : (
             <button
-              className="navigation__button navigation__button--sign-in"
+                className="navigation__button navigation__button--sign-in"
+                onClick={onLoginClick}
               >
               Sign in
             </button>

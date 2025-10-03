@@ -1,0 +1,58 @@
+.modal__login-button {
+  color: #2f71e5;
+  border: none;
+  cursor: pointer;
+  background: none;
+  font-size: 14px;
+  opacity: 100%;
+  transition: 0.25s ease-in-out;
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+
+  
+}
+
+.modal__content_type_success {
+  position: relative;
+  background-color: #fff;
+  width: 430px;
+  border-radius: 16px;
+  padding: 34px 36px 28px;
+}
+
+.modal__title_type_success {
+  font-family: "Roboto";
+  font-style: normal;
+color: rgba(0, 0, 0, 1);
+margin-top: 0;
+ margin-left: 0;
+ width: 315px;
+font-family: Roboto;
+font-weight: 900;
+font-size: 24px;
+line-height: 100%;
+letter-spacing: 0%;
+
+}
+
+@media screen and (max-width: 768px) {
+  .modal__content_type_success {
+    max-width: 282px;
+    width: 100%;
+  }
+}
+@media screen and (max-width: 320px) {
+  .modal__content_type_success {
+   
+    font-size: 16px;
+  }
+  .modal__content{
+
+    padding: 10px;
+  }
+  .modal__close-button{
+    top: -35px;
+    right: 3px;
+  }
+}

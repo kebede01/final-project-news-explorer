@@ -8,6 +8,8 @@
   color: #fff;
   height: 80px;
   box-sizing: border-box;
+  width: 100%;
+ overflow-x: auto;
 }
 
 
@@ -15,7 +17,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 200px;
+  max-width: 200px;
+  width: 100%;
 }
 
 
@@ -122,10 +125,20 @@ vertical-align: middle;
   cursor: pointer;
   border: 1px solid;
   background-color: transparent;
+  
 }
  .navigation__username {
     font-size: 16px;
     line-height: 20px;
+    font-family: Roboto;
+font-weight: 500;
+font-size: 18px;
+color: rgba(255, 255, 255, 1);
+
+line-height: 24px;
+letter-spacing: 0px;
+vertical-align: middle;
+
   }
 
   .navigation__logout-icon {

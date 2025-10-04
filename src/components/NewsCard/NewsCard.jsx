@@ -57,7 +57,7 @@ function NewsCard({
             <div className="news-card__button-container">
               <div
                 className={`news-card__popup-text ${
-                  isHovered ? "" : "news-card__popup-text--hidden"
+                  isHovered ? "" : "news-card__popup-text_hidden"
                 }`}>
                 Remove from saved
               </div>

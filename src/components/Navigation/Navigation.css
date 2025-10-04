@@ -56,7 +56,18 @@ vertical-align: middle;
 
 }
 
+ .navigation__username {
+    font-size: 16px;
+    line-height: 20px;
+    font-family: Roboto;
+font-weight: 500;
+font-size: 18px;
+color: rgba(255, 255, 255, 1);
+line-height: 24px;
+letter-spacing: 0px;
+vertical-align: middle;
 
+  }
 .navigation__link{
     color: rgba(255, 255, 255, 1);
   border: none;
@@ -64,7 +75,6 @@ vertical-align: middle;
   cursor: pointer;
 font-style: normal;
  text-decoration: none;
-
  display: flex;
   align-items: center;
   height: 48px;
@@ -76,9 +86,27 @@ line-height: 24px;
 letter-spacing: 0px;
 text-align: center;
 vertical-align: middle;
-
 }
 
+.navigation__link.black{
+  color: #000000
+}
+
+.navigation__button_sign-in {
+  justify-content: center;
+  padding: 0 20px;
+  border-radius: 100px;
+  height: 48px;
+  cursor: pointer;
+  border: 1px solid #ffffff;
+  background-color: transparent;
+  color: #ffffff;
+  min-width: 176px;
+  line-height: 24px;
+letter-spacing: 0px;
+text-align: center;
+vertical-align: middle;
+}
 .navigation__saved_black{
   color: black;
     border: none;
@@ -133,18 +161,7 @@ vertical-align: middle;
 }
 
 
- .navigation__username {
-    font-size: 16px;
-    line-height: 20px;
-    font-family: Roboto;
-font-weight: 500;
-font-size: 18px;
-color: rgba(255, 255, 255, 1);
-line-height: 24px;
-letter-spacing: 0px;
-vertical-align: middle;
 
-  }
 
   .navigation__logout-icon {
   width: 24px;
@@ -170,21 +187,7 @@ display: flex;
 
 }
 
-.navigation__button_sign-in {
-  justify-content: center;
-  padding: 0 20px;
-  border-radius: 100px;
-  height: 48px;
-  cursor: pointer;
-  border: 1px solid #ffffff;
-  background-color: transparent;
-  color: #ffffff;
-  min-width: 176px;
-  line-height: 24px;
-letter-spacing: 0px;
-text-align: center;
-vertical-align: middle;
-}
+
 
 
 

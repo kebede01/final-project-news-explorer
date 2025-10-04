@@ -28,7 +28,7 @@ function App() {
   const [hasSearched, setHasSearched] = useState(false);
   const [searchError, setSearchError] = useState(false);
   const [keyWord, setKeyWord] = useState("");
-  const [currentPage, setCurrentPage] = useState("");
+  const [currentPage, setCurrentPage] = useState("/");
   const [savedArticles, setSavedArticles] = useState([]);
   const [activeModal, setActiveModal] = useState("");
   const [currentUser, setCurrentUser] = useState({
@@ -211,7 +211,7 @@ function App() {
             value={{ savedArticles, setSavedArticles }}
           >
             <currentPageContext.Provider
-              value={{ currentPage, setCurrentPage }}
+              value={{ currentPage, setCurrentPage}}
             >
               <searchResultContext.Provider
                 value={{ searchResult, setSearchResult }}

@@ -58,12 +58,12 @@
   top: 24px;
 }
 
-.news-card__popup-text--hidden {
+.news-card__popup-text_hidden {
   display: none;
 }
 
 .news-card__button-delete {
-  background: url("../../assets/card_delete.svg") center no-repeat;
+  background: url(../../assets/card_delete.svg) center no-repeat;
   background-color: white;
   width: 40px;
   height: 40px;
@@ -76,13 +76,13 @@
 }
 
 .news-card__button-delete:hover {
-  background: url("../../assets/card_delete_hover.svg") center no-repeat;
+  background: url(../../assets/card_delete_hover.svg) center no-repeat;
   background-color: white;
   cursor: pointer;
 }
 
 .news-card__button-bookmark {
-  background: transparent url("../../assets/save_icon.svg");
+  background: transparent url(../../assets/save_icon.svg);
   width: 40px;
   height: 40px;
   border-radius: 8px;

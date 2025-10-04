@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import "./App.css";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
 
 import RegisterModal from "../RegisterModal/RegisterModal";
 import LoginModal from "../LoginModal/LoginModal.jsx";
@@ -25,8 +25,8 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [searchResult, setSearchResult] = useState([]);
 
-  const [hasSearched, setHasSearched] = useState("false");
-  const [searchError, setSearchError] = useState("false");
+  const [hasSearched, setHasSearched] = useState(false);
+  const [searchError, setSearchError] = useState(false);
   const [keyWord, setKeyWord] = useState("");
   const [currentPage, setCurrentPage] = useState("");
   const [savedArticles, setSavedArticles] = useState([]);
@@ -39,7 +39,6 @@ function App() {
 
   const handleSearch = (keyWord) => {
     setKeyWord(keyWord);
-
     setIsLoading(true);
     getSearchResult(keyWord)
       .then((res) => {
@@ -219,32 +218,34 @@ function App() {
               >
                 <div className="page">
                   <div className="page__content">
-                    <Routes>
-                      <Route
-                        path="/"
-                        element={
-                          <Main
-                            handleSearch={handleSearch}
-                            onLoginClick={handleSignInModalClick}
-                            onLogout={handleLogout}
-                            searchError={searchError}
-                            isLoading={isLoading}
-                            handleRemoveArticle={handleRemoveArticle}
-                            handleSaveArticle={handleSaveArticle}
-                            onRegisterClick={handleRegisterModalClick}
-                          />
-                        }
-                      />
+                    <BrowserRouter>
+                      <Routes>
+                        <Route
+                          path="/"
+                          element={
+                            <Main
+                              handleSearch={handleSearch}
+                              onLoginClick={handleSignInModalClick}
+                              onLogout={handleLogout}
+                              searchError={searchError}
+                              isLoading={isLoading}
+                              handleRemoveArticle={handleRemoveArticle}
+                              handleSaveArticle={handleSaveArticle}
+                              onRegisterClick={handleRegisterModalClick}
+                            />
+                          }
+                        />
 
-                      <Route
-                        path="/saved-news"
-                        element={
-                          <SavedNews
-                            handleRemoveArticle={handleRemoveArticle}
-                          />
-                        }
-                      />
-                    </Routes>
+                        <Route
+                          path="/saved-news"
+                          element={
+                            <SavedNews
+                              handleRemoveArticle={handleRemoveArticle}
+                            />
+                          }
+                        />
+                      </Routes>
+                    </BrowserRouter>
 
                     <RegisterModal
                       isOpen={activeModal === "sign-up"}

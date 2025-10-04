@@ -3,20 +3,38 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px 104px;
+ 
   border-bottom: 1px solid rgba(246, 244, 244, 0.7);
   color: #fff;
   height: 80px;
   box-sizing: border-box;
-  overflow-x: auto;
+ padding : 16px 104px 0px;
 }
 
+
+.navigation-saved{
+  border-bottom: 1px solid rgb(211, 209, 209);
+}
 
 .navigation__container {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
+  
+}
+
+
+.navigation__menu {
+  display: flex;
+  align-items: center;
+}
+
+.navigation__menu-content {
+  display: flex;
+  align-items: center;
+  gap: 96px;
+  padding: 0;
+  margin: 0;
 }
 
 
@@ -38,26 +56,15 @@ vertical-align: middle;
 
 }
 
-.navigation__menu {
-  display: flex;
-  align-items: center;
-}
 
-.navigation__menu-content {
-  display: flex;
-  align-items: center;
-  gap: 96px;
-  padding: 0;
-  margin: 0;
-}
-
-.navigation__link {
+.navigation__link{
+    color: rgba(255, 255, 255, 1);
   border: none;
   background: none;
   cursor: pointer;
 font-style: normal;
  text-decoration: none;
-  color: rgba(255, 255, 255, 1);
+
  display: flex;
   align-items: center;
   height: 48px;
@@ -72,6 +79,47 @@ vertical-align: middle;
 
 }
 
+.navigation__saved_black{
+  color: black;
+    border: none;
+  background: none;
+  cursor: pointer;
+font-style: normal;
+ text-decoration: none;
+
+ display: flex;
+  align-items: center;
+  height: 48px;
+  white-space: nowrap;
+ font-family: Roboto;
+font-weight: 500;
+font-size: 18px;
+line-height: 24px;
+letter-spacing: 0px;
+text-align: center;
+vertical-align: middle;
+}
+
+.navigation__link_underline{
+  position: relative;
+}
+.navigation__link_underline::after{
+  content: "";
+  border-bottom: 3px solid white;
+  content: "";
+  position: absolute;
+  left: -8px;
+  bottom: -10px;
+  width: 68px;
+  height: 3px;
+}
+
+.navigation__saved_white::after{
+  content: "";
+  border-bottom: none;
+
+}
+
 .navigation__button_logged-in {
   display: flex;
   align-items: center;
@@ -81,8 +129,10 @@ vertical-align: middle;
   cursor: pointer;
   border: 1px solid;
   background-color: transparent;
-  
+  border: 1px solid white;
 }
+
+
  .navigation__username {
     font-size: 16px;
     line-height: 20px;
@@ -104,6 +154,9 @@ vertical-align: middle;
   opacity: 1;
 }
 
+.navigation__logo_white, .navigation__logo_black{
+  margin: 0;
+}
 
 
 .navigation__button{
@@ -112,7 +165,7 @@ font-weight: 500;
 font-size: 18px;
 display: flex;
   align-items: center;
-  gap: 70px;
+  gap: 15px;
 
 
 }
@@ -132,6 +185,9 @@ letter-spacing: 0px;
 text-align: center;
 vertical-align: middle;
 }
+
+
+
 
 @media screen and (min-width: 769px) and (max-width: 1024px) {
     .navigation {

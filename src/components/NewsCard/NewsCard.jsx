@@ -2,10 +2,10 @@ import "./NewsCard.css";
 // import { useLocation } from "react-router-dom";
 import { keywordContext } from  "../../contexts/keywordContext.js";
 import { savedArticlesContext } from "../../contexts/savedArticlesContext";
-import { currentPageContext } from "../../contexts/currentPageContext";
-import { currentUserContext } from "../../contexts/currentUserContext";
-import { useContext, useEffect, useState } from "react";
 
+import { currentUserContext } from "../../contexts/currentUserContext";
+import { useContext,  useState } from "react";
+import { useLocation } from "react-router-dom";
 function NewsCard({
   newsData,
   handleSaveArticle,
@@ -27,9 +27,9 @@ function NewsCard({
     formattedDate = "";
   }
 
-  // const location = useLocation();
+   const location = useLocation();
 
-  const { currentPage, setCurrentPage } = useContext(currentPageContext);
+ 
   const { savedArticles } = useContext(savedArticlesContext);
   const { keyword } = useContext(keywordContext);
   const { isLoggedIn } = useContext(currentUserContext);
@@ -43,15 +43,11 @@ function NewsCard({
     handleRemoveArticle({ newsData });
   };
 
-  useEffect(() => {
-    setCurrentPage(location.pathname);
-  }, [location.pathname, setCurrentPage]);
-
   return (
     <section className="news-card">
       {/* Controls container */}
       <div className="news-card__controls">
-        {currentPage === "/saved-news" && (
+        {location.pathname === "/saved-news" && (
           <>
             <h2 className="news-card__keyword">{newsData.keyword}</h2>
             <div className="news-card__button-container">
@@ -71,7 +67,7 @@ function NewsCard({
           </>
         )}
 
-        {isLoggedIn && currentPage === "/" && (
+        {isLoggedIn && location.pathname=== "/" && (
           <div className="news-card__button-container">
             <div
               className={`news-card__popup-text ${

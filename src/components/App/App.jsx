@@ -11,7 +11,7 @@ import { keywordContext } from "../../contexts/keywordContext.js";
 import { hasSearchedContext } from "../../contexts/hasSearchedContext.js";
 import { currentUserContext } from "../../contexts/currentUserContext.js";
 import { savedArticlesContext } from "../../contexts/savedArticlesContext";
-import { currentPageContext } from "../../contexts/currentPageContext";
+
 import { searchResultContext } from "../../contexts/searchResultContext.js";
 import Main from "../Main/Main.jsx";
 import {
@@ -28,7 +28,6 @@ function App() {
   const [hasSearched, setHasSearched] = useState(false);
   const [searchError, setSearchError] = useState(false);
   const [keyWord, setKeyWord] = useState("");
-  const [currentPage, setCurrentPage] = useState("/");
   const [savedArticles, setSavedArticles] = useState([]);
   const [activeModal, setActiveModal] = useState("");
   const [currentUser, setCurrentUser] = useState({
@@ -210,70 +209,66 @@ function App() {
           <savedArticlesContext.Provider
             value={{ savedArticles, setSavedArticles }}
           >
-            <currentPageContext.Provider
-              value={{ currentPage, setCurrentPage}}
+            <searchResultContext.Provider
+              value={{ searchResult, setSearchResult }}
             >
-              <searchResultContext.Provider
-                value={{ searchResult, setSearchResult }}
-              >
-                <div className="page">
-                  <div className="page__content">
-                    <BrowserRouter>
-                      <Routes>
-                        <Route
-                          path="/"
-                          element={
-                            <Main
-                              handleSearch={handleSearch}
-                              onLoginClick={handleSignInModalClick}
-                              onLogout={handleLogout}
-                              searchError={searchError}
-                              isLoading={isLoading}
-                              handleRemoveArticle={handleRemoveArticle}
-                              handleSaveArticle={handleSaveArticle}
-                              onRegisterClick={handleRegisterModalClick}
-                            />
-                          }
-                        />
+              <div className="page">
+                <div className="page__content">
+                  <BrowserRouter>
+                    <Routes>
+                      <Route
+                        path="/"
+                        element={
+                          <Main
+                            handleSearch={handleSearch}
+                            onLoginClick={handleSignInModalClick}
+                            onLogout={handleLogout}
+                            searchError={searchError}
+                            isLoading={isLoading}
+                            handleRemoveArticle={handleRemoveArticle}
+                            handleSaveArticle={handleSaveArticle}
+                            onRegisterClick={handleRegisterModalClick}
+                          />
+                        }
+                      />
 
-                        <Route
-                          path="/saved-news"
-                          element={
-                            <SavedNews
-                              handleRemoveArticle={handleRemoveArticle}
-                            />
-                          }
-                        />
-                      </Routes>
-                    </BrowserRouter>
+                      <Route
+                        path="/saved-news"
+                        element={
+                          <SavedNews
+                            handleRemoveArticle={handleRemoveArticle}
+                          />
+                        }
+                      />
+                    </Routes>
+                  </BrowserRouter>
 
-                    <RegisterModal
-                      isOpen={activeModal === "sign-up"}
-                      onClose={onClose}
-                      onRegister={handleSignUp}
-                      title="Sign up"
-                      onLoginClick={handleSignInModalClick}
-                      onRegisterClick={handleRegisterModalClick}
+                  <RegisterModal
+                    isOpen={activeModal === "sign-up"}
+                    onClose={onClose}
+                    onRegister={handleSignUp}
+                    title="Sign up"
+                    onLoginClick={handleSignInModalClick}
+                    onRegisterClick={handleRegisterModalClick}
 
-                      //  onRegister={handleSignUp}
-                    />
-                    <LoginModal
-                      isOpen={activeModal === "sign-in"}
-                      onClose={onClose}
-                      onLogIn={handleSignIn}
-                      title="Sign in"
-                      onLoginClick={handleSignInModalClick}
-                      onRegisterClick={handleRegisterModalClick}
-                    />
-                    <RegisterSuccessModal
-                      onClose={onClose}
-                      isOpen={activeModal === "success"}
-                      onLoginClick={handleSignInModalClick}
-                    />
-                  </div>
+                    //  onRegister={handleSignUp}
+                  />
+                  <LoginModal
+                    isOpen={activeModal === "sign-in"}
+                    onClose={onClose}
+                    onLogIn={handleSignIn}
+                    title="Sign in"
+                    onLoginClick={handleSignInModalClick}
+                    onRegisterClick={handleRegisterModalClick}
+                  />
+                  <RegisterSuccessModal
+                    onClose={onClose}
+                    isOpen={activeModal === "success"}
+                    onLoginClick={handleSignInModalClick}
+                  />
                 </div>
-              </searchResultContext.Provider>
-            </currentPageContext.Provider>
+              </div>
+            </searchResultContext.Provider>
           </savedArticlesContext.Provider>
         </currentUserContext.Provider>
       </keywordContext.Provider>

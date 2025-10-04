@@ -5,6 +5,7 @@ import { useLocation } from "react-router-dom";
 import logOutWhite from "../../assets/logout_white.svg";
 import logOutBlack from "../../assets/logout.svg";
 import { currentUserContext } from "../../contexts/currentUserContext";
+
 function Navigation({ onLoginClick, onLogout }) {
   const { currentUser, isLoggedIn } = useContext(currentUserContext);
   const location = useLocation();

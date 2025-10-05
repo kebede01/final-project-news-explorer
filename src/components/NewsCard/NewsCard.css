@@ -63,7 +63,8 @@
 }
 
 .news-card__button-delete {
-  background: url(../../assets/card_delete.svg) center no-repeat;
+  background: url(../../assets/card_delete.svg);
+  background-repeat: no-repeat;
   background-color: white;
   width: 40px;
   height: 40px;
@@ -76,13 +77,17 @@
 }
 
 .news-card__button-delete:hover {
-  background: url(../../assets/card_delete_hover.svg) center no-repeat;
+  background: url(../../assets/card_delete_hover.svg);
+  background-repeat: no-repeat;
+  background-position: center;
   background-color: white;
   cursor: pointer;
 }
 
 .news-card__button-bookmark {
-  background: transparent url(../../assets/save_icon.svg);
+  background: transparent url(../../assets/bookmark.svg);
+  background-repeat: no-repeat;
+   background-position: center;
   width: 40px;
   height: 40px;
   border-radius: 8px;
@@ -94,11 +99,15 @@
 }
 
 .news-card__button-bookmark:hover {
-  background: transparent url("../../assets/save_icon_hover.svg");
+  background: transparent url(../../assets/bookmark_hover.svg);
+  background-repeat: no-repeat;
+   background-position: center;
 }
 
-.news-card__button-bookmark--marked {
-  background: transparent url("../../assets/save_icon_marked.svg");
+.news-card__button-bookmark_marked {
+  background: transparent url(../../assets/bookmark_blue.svg);
+  background-repeat: no-repeat;
+   background-position: center;
 }
 
 .news-card__content {

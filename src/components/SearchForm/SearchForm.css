@@ -115,6 +115,7 @@
     max-width: 265px;
     height: 36px;
     padding: 10px;
+    text-align: center;
   }
 
   .search-form__button {

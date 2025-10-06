@@ -1,11 +1,10 @@
 import "./NewsCard.css";
-// import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { keywordContext } from  "../../contexts/keywordContext.js";
 import { savedArticlesContext } from "../../contexts/savedArticlesContext";
-
 import { currentUserContext } from "../../contexts/currentUserContext";
 import { useContext,  useState } from "react";
-import { useLocation } from "react-router-dom";
+
 function NewsCard({
   newsData,
   handleSaveArticle,
@@ -13,7 +12,7 @@ function NewsCard({
   onClick,
 }) {
   let formattedDate;
-  console.log(`newsData is ${JSON.stringify(newsData)}`);
+ 
   if (newsData.publishedAt) {
     formattedDate = new Date(newsData.publishedAt).toLocaleDateString(
       "default",
@@ -121,11 +120,7 @@ const isAlreadySaved = savedArticles.some(
 
       {/* Content container */}
       <div className="news-card__content">
-        <a
-          className="news-card__link"
-          href={newsData.url}
-          target="_blank"
-          rel="noreferrer">
+        
           {newsData.urlToImage && (
             <img
               className="news-card__image"
@@ -146,7 +141,7 @@ const isAlreadySaved = savedArticles.some(
               </p>
             )}
           </header>
-        </a>
+        
       </div>
     </section>
   );

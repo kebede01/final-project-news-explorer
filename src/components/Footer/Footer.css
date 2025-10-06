@@ -1,0 +1,39 @@
+.footer{
+  padding: 80px 40px;
+}
+
+.footer-year{
+  font-family: Roboto;
+font-weight: 400;
+font-size: 16px;
+color: rgba(182, 188, 191, 1);
+line-height: 22px;
+letter-spacing: 0px;
+
+}
+.footer-content{
+    display: flex;
+  justify-content: space-between;
+}
+
+.footer-links{
+  display: flex;
+  gap: 40px;
+}
+.footer-links__main{
+  display: flex;
+  gap: 40px;
+  font-family: Roboto;
+font-weight: 400;
+font-size: 18px;
+
+line-height: 24px;
+letter-spacing: 0px;
+text-align: center;
+
+}
+
+.footer-links__icon{
+  display: flex;
+  gap: 24px;
+}

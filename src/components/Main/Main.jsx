@@ -6,6 +6,7 @@ import Preloader from "../Preloader/Preloader"
 import About from "../About/About"
 import NotFound from "../NotFound/NotFound"
 import NewsCardList from "../NewsCardList/NewsCardList"
+import Footer from "../Footer/Footer"
 import { useContext } from "react";
 
 function Main({
@@ -53,6 +54,7 @@ function Main({
           )}
         </div>
         <About />
+        <Footer/>
       </main>
     </>
   );

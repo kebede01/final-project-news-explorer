@@ -14,7 +14,7 @@ function Footer() {
           <p className="footer-link footer-link_tripleten">TripleTen</p>
           </div>
           <div className="footer-links__icon">
-             <img src={ vector} alt="vector icon"/>
+             <img src={ vector} alt="vector icon" className="footer-links__icon_img"/>
           <img src={ union} alt="union icon" />
          </div>
          

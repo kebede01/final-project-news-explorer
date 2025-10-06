@@ -42,6 +42,11 @@ function NewsCard({
   const handleRemoveClick = () => {
     handleRemoveArticle({ newsData });
   };
+  
+const isAlreadySaved = savedArticles.some(
+  (savedArticle) => savedArticle.link === newsData.url
+);
+
 
   return (
     <section className="news-card">
@@ -88,7 +93,7 @@ function NewsCard({
                   : ""
               }`}
               onClick={
-                newsData.isSaved ? handleRemoveClick : handleBookmarkClick
+                isAlreadySaved ? handleRemoveClick : handleBookmarkClick
               }
               onMouseEnter={() => setIsHovered(true)}
               onMouseLeave={() => setIsHovered(false)}

@@ -3,9 +3,9 @@ import { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import logOutWhite from "../../assets/logout_white.svg";
-import logOutBlack from "../../assets/logout.svg";
+import logOutBlack from "../../assets/logout_black.svg";
 import { currentUserContext } from "../../contexts/currentUserContext";
-import MobileMenu from "../MobileMenu/MobileMenu";
+
 function Navigation({ onLoginClick, onLogout }) {
   const { currentUser, isLoggedIn } = useContext(currentUserContext);
   const location = useLocation();

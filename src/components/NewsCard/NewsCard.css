@@ -30,7 +30,7 @@
   background-color: white;
   padding: 8px 22px;
   text-align: center;
-  font-family: "Roboto", Arial, sans-serif;
+  font-family: "Roboto";
   font-size: 14px;
   font-weight: 500;
   line-height: 1.7;
@@ -99,13 +99,13 @@
 }
 
 .news-card__button-bookmark:hover {
-  background: transparent url(../../assets/bookmark_hover.svg);
+  background: transparent url(../../assets/bookmark-hover.svg);
   background-repeat: no-repeat;
    background-position: center;
 }
 
 .news-card__button-bookmark_marked {
-  background: transparent url(../../assets/bookmark_blue.svg);
+  background: transparent url(../../assets/bookmark-blue.svg);
   background-repeat: no-repeat;
    background-position: center;
 }

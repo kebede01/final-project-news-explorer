@@ -5,7 +5,7 @@ import { useLocation } from "react-router-dom";
 import logOutWhite from "../../assets/logout_white.svg";
 import logOutBlack from "../../assets/logout.svg";
 import { currentUserContext } from "../../contexts/currentUserContext";
-
+import MobileMenu from "../MobileMenu/MobileMenu";
 function Navigation({ onLoginClick, onLogout }) {
   const { currentUser, isLoggedIn } = useContext(currentUserContext);
   const location = useLocation();
@@ -24,11 +24,9 @@ function Navigation({ onLoginClick, onLogout }) {
         >
           NewsExplorer
         </p>
+ 
 
-        <button className="navigation__menu-button">
-          <span className="navigation__menu-button-line"></span>
-          <span className="navigation__menu-button-line"></span>
-        </button>
+      
       </div>
 
       <div className="navigation__menu ">

@@ -188,7 +188,49 @@ display: flex;
 }
 
 
+.header__menu-btn {
+  display: none; /* Hidden on desktop */
+  flex-direction: column;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+}
 
+.header__menu-line {
+  width: 24px;
+  height: 2px;
+  background-color: #1a1b22;
+  margin: 3px 0;
+  transition: 0.3s;
+}
+
+.header__menu-btn_active .header__menu-line:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.header__menu-btn_active .header__menu-line:nth-child(2) {
+  opacity: 0;
+}
+
+.header__menu-btn_active .header__menu-line:nth-child(3) {
+  transform: rotate(-45deg) translate(7px, -6px);
+}
+
+.header__nav_opened {
+  right: 0; /* Slides from right: -100% to right: 0 */
+  z-index: 1000; /* Appears above other content */
+}
+
+/* Show hamburger on mobile */
+@media screen and (max-width: 767px) {
+  .header__menu-btn {
+    display: flex;
+  }
+  .navigation__menu {
+    display: none;
+  }
+}
 
 
 

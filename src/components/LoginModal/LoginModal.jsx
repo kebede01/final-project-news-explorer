@@ -36,7 +36,7 @@ function LoginModal({
       onSubmit={handleSubmit}
       buttonText={"or Log in"}
     >
-      <label htmlFor="email" className="modal__label">
+      <label htmlFor="email-2" className="modal__label">
         Email
         <input
           className="modal__input "
@@ -49,7 +49,7 @@ function LoginModal({
           required
         />
       </label>
-      <label htmlFor="password" className="modal__label">
+      <label htmlFor="password-2" className="modal__label">
         Password
         <input
           className="modal__input"

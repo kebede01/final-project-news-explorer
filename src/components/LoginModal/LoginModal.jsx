@@ -9,7 +9,7 @@ function LoginModal({
   onClose,
   isOpen,
   title,
-  onLoginClick,
+  // onLoginClick,
   onRegisterClick,
   onLogIn,
 }) {
@@ -36,26 +36,26 @@ function LoginModal({
       onSubmit={handleSubmit}
       buttonText={"or Log in"}
     >
-      <label htmlFor="email" className="modal__label">
+      <label htmlFor="email-2" className="modal__label">
         Email
         <input
           className="modal__input "
           type="email"
           name="email"
-          id="email"
+          id="email-2"
           value={email}
           onChange={handleEmail}
           placeholder="Email"
           required
         />
       </label>
-      <label htmlFor="password" className="modal__label">
+      <label htmlFor="password-2" className="modal__label">
         Password
         <input
           className="modal__input"
           type="password"
           name="password"
-          id="password"
+          id="password-2"
           value={password}
           onChange={handlePassword}
           placeholder="Password"

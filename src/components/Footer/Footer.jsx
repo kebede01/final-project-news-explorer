@@ -1,6 +1,6 @@
 import "./Footer.css";
-import vector from "../../assets/vector.svg";
-import union from "../../assets/union.svg";
+import vector from "../../assets/github.svg";
+import union from "../../assets/union.png";
 function Footer() {
   return (
     <section className="footer">
@@ -15,7 +15,7 @@ function Footer() {
           </div>
           <div className="footer-links__icon">
              <img src={ vector} alt="vector icon" className="footer-links__icon_img"/>
-          <img src={ union} alt="union icon" />
+          <img src={ union} alt="union icon" className="footer-links__icon_img"/>
          </div>
          
         </div>

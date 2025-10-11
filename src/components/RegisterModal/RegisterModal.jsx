@@ -9,7 +9,7 @@ function RegisterModal({
   isOpen,
   title,
   onLoginClick,
-  onRegisterClick,
+  // onRegisterClick,
   onRegister,
 }) {
   const [emailRegister, setEmailRegister] = useState("");
@@ -45,39 +45,39 @@ function RegisterModal({
       buttonText={"or Log in"}
       onSubmit={handleSubmit}
     >
-      <label htmlFor="email" className="modal__label">
+      <label htmlFor="email-1" className="modal__label">
         Email
         <input
           className="modal__input "
           type="email"
           name="email"
-          id="email"
+          id="email-1"
           value={emailRegister}
           onChange={handleEmailRegister}
           placeholder="Email"
           required
         />
       </label>
-      <label htmlFor="password" className="modal__label">
+      <label htmlFor="password-1" className="modal__label">
         Password
         <input
           className="modal__input"
           type="password"
           name="password"
-          id="password"
+          id="password-1"
           value={passwordRegister}
           onChange={handlePasswordRegister}
           placeholder="Password"
           required
         />
       </label>
-      <label htmlFor="username" className="modal__label">
+      <label htmlFor="username-1" className="modal__label">
         Username
         <input
           className="modal__input"
           type="text"
           name="username"
-          id="username"
+          id="username-1"
           value={nameRegister}
           onChange={handleNameRegister}
           placeholder="Username"

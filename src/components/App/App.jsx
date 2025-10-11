@@ -214,7 +214,7 @@ function App() {
             >
               <div className="page">
                 <div className="page__content">
-                  <BrowserRouter>
+                  <BrowserRouter basename="/final-project-news-explorer">
                     <Routes>
                       <Route
                         path="/"

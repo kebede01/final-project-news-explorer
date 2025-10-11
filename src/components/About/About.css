@@ -43,7 +43,6 @@ font-weight: 400;
 font-size: 40px;
 line-height: 46px;
 letter-spacing: 0px;
-color: rgba(26, 27, 34, 1);
 
 }
 
@@ -60,13 +59,6 @@ letter-spacing: 0px;
 .about__content-description__divider{
   display: inline-block;
   margin-bottom: 40px;
-}
-
-@media screen and (max-width: 768px){
-  .about__content-title{
-    font-size: 30px;
-    line-height: 40px;
-  }
 }
 
 @media screen and (max-width: 480px){
@@ -99,6 +91,4 @@ letter-spacing: 0px;
 .about{
 padding: 0 16px;
 }
-
-
 }

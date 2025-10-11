@@ -51,7 +51,7 @@ function RegisterModal({
           className="modal__input "
           type="email"
           name="email"
-          id="email"
+          id="email-1"
           value={emailRegister}
           onChange={handleEmailRegister}
           placeholder="Email"
@@ -64,7 +64,7 @@ function RegisterModal({
           className="modal__input"
           type="password"
           name="password"
-          id="password"
+          id="password-1"
           value={passwordRegister}
           onChange={handlePasswordRegister}
           placeholder="Password"

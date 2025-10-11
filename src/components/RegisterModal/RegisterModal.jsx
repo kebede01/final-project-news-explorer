@@ -9,7 +9,7 @@ function RegisterModal({
   isOpen,
   title,
   onLoginClick,
-  onRegisterClick,
+  // onRegisterClick,
   onRegister,
 }) {
   const [emailRegister, setEmailRegister] = useState("");

@@ -9,7 +9,7 @@ function LoginModal({
   onClose,
   isOpen,
   title,
-  onLoginClick,
+  // onLoginClick,
   onRegisterClick,
   onLogIn,
 }) {
@@ -42,7 +42,7 @@ function LoginModal({
           className="modal__input "
           type="email"
           name="email"
-          id="email"
+          id="email-2"
           value={email}
           onChange={handleEmail}
           placeholder="Email"
@@ -55,7 +55,7 @@ function LoginModal({
           className="modal__input"
           type="password"
           name="password"
-          id="password"
+          id="password-2"
           value={password}
           onChange={handlePassword}
           placeholder="Password"

@@ -128,10 +128,18 @@
   height: 80px;
 }
 
+.navigation__link:hover {
+  color: rgb(123, 123, 223);
+}
+
 .navigation__link.black {
   color: #000000;
   border-bottom: 3px solid rgba(209, 210, 214, 1);
   position: relative;
+}
+
+.navigation__link.black:hover {
+  color: rgb(148, 139, 139);
 }
 .navigation__link.marked::after {
   content: "";

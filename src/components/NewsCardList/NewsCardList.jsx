@@ -20,8 +20,7 @@ const NewsCardList = ({
 
   return (
     <section className="news-card-list">
-      {hasSearched && searchResult.length > 0 &&
-        (
+      {hasSearched && searchResult.length > 0 && (
         <>
           <h2 className="news-card-list__header">Search results</h2>
           <ul className="news-card-list__container">
@@ -42,7 +41,8 @@ const NewsCardList = ({
                 ? "news-card-list__button--hidden"
                 : ""
             }`}
-            onClick={increaseVisibleCards}>
+            onClick={increaseVisibleCards}
+          >
             Show more
           </button>
         </>

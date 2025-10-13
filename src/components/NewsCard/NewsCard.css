@@ -87,7 +87,7 @@
 .news-card__button-bookmark {
   background: transparent url(../../assets/bookmark.svg);
   background-repeat: no-repeat;
-   background-position: center;
+  background-position: center;
   width: 40px;
   height: 40px;
   border-radius: 8px;
@@ -101,13 +101,13 @@
 .news-card__button-bookmark:hover {
   background: transparent url(../../assets/bookmark-hover.svg);
   background-repeat: no-repeat;
-   background-position: center;
+  background-position: center;
 }
 
 .news-card__button-bookmark_marked {
   background: transparent url(../../assets/bookmark-blue.svg);
   background-repeat: no-repeat;
-   background-position: center;
+  background-position: center;
 }
 
 .news-card__content {
@@ -197,7 +197,6 @@
   }
 
   .news-card__description {
-  
     height: auto;
     -webkit-line-clamp: 5;
     line-clamp: 5;
@@ -209,7 +208,6 @@
   }
 
   .news-card__title {
-  
     height: 52px;
     margin-top: 8px;
   }
@@ -239,7 +237,6 @@
   }
 
   .news-card__description {
-   
     margin-top: 10px;
     height: auto;
     -webkit-line-clamp: 8;
@@ -262,7 +259,7 @@
   }
 
   .news-card__title {
-   margin-top: 10px;
+    margin-top: 10px;
   }
 
   .news-card__source {
@@ -284,9 +281,9 @@
     height: 168px;
   }
 
-   .news-card__title {
-     font-size: 22px;
-  line-height: 24px;
-   margin-top: 10px;
+  .news-card__title {
+    font-size: 22px;
+    line-height: 24px;
+    margin-top: 10px;
   }
 }

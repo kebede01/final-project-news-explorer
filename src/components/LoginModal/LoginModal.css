@@ -1,6 +1,4 @@
-
-
-  .register-modal__signin-button {
+.register-modal__signin-button {
   background-color: #2f71e5;
   color: #fff;
   padding: 20px 115px;
@@ -20,7 +18,7 @@
   transition: 0.25s ease-in-out;
 }
 
-.register-modal__signup-button{
+.register-modal__signup-button {
   color: #2f71e5;
   border: none;
   cursor: pointer;
@@ -36,26 +34,30 @@
 .register-modal__signin-button:hover {
   background-color: #e8e8e8;
 }
+
 .register-modal__signup-button:hover {
   opacity: 60%;
 }
+
 @media screen and (max-width: 768px) {
-  .modal{
+  .modal {
     max-width: 300px;
     width: 100%;
     margin: 0 auto;
     padding: 20px;
   }
-  .modal__close-button{
+
+  .modal__close-button {
     top: -40px;
     right: 3px;
   }
+
   .register-modal__signup-button {
     max-width: 280px;
     height: 64px;
     font-size: 16px;
-  padding: 20px;
-  margin-left: 10px;
+    padding: 20px;
+    margin-left: 10px;
   }
 
   .register-modal__signin-button {
@@ -65,22 +67,22 @@
   }
 }
 
-@media screen and (max-width: 320px){
-    .modal{
+@media screen and (max-width: 320px) {
+  .modal {
     max-width: 250px;
     width: 100%;
     margin: 0 auto;
     padding: 20px;
   }
 
-    .register-modal__signin-button {
+  .register-modal__signin-button {
     font-size: 16px;
     margin-top: 15px;
     max-width: 200px;
-   padding: 0;
+    padding: 0;
   }
+
   .register-modal__signup-button {
-   
     height: 64px;
     font-size: 16px;
     margin-top: 0px;

@@ -10,11 +10,13 @@ function RegisterSuccessModal({ isOpen, onClose, onLoginClick }) {
         <button
           className="modal__close-button"
           type="button"
-          onClick={onClose}></button>
+          onClick={onClose}
+        ></button>
         <button
           className="modal__login-button"
           type="button"
-          onClick={onLoginClick}>
+          onClick={onLoginClick}
+        >
           Sign in
         </button>
       </div>

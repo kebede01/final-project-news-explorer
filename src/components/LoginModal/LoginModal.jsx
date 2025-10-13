@@ -2,13 +2,7 @@ import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import "./LoginModal.css";
 import { useState } from "react";
 
-function LoginModal({
-  onClose,
-  isOpen,
-  title,
-  onRegisterClick,
-  onLogIn,
-}) {
+function LoginModal({ onClose, isOpen, title, onRegisterClick, onLogIn }) {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const handleEmail = (e) => {
@@ -43,8 +37,7 @@ function LoginModal({
           onChange={handleEmail}
           placeholder="Email"
           required
-          autoComplete="username" 
-          
+          autoComplete="username"
         />
       </label>
       <label htmlFor="password-2" className="modal__label">
@@ -58,9 +51,7 @@ function LoginModal({
           onChange={handlePassword}
           placeholder="Password"
           required
-         autoComplete="current-password"
-
-
+          autoComplete="current-password"
         />
       </label>
 

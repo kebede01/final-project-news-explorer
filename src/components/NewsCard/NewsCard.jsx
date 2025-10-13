@@ -1,9 +1,9 @@
 import "./NewsCard.css";
 import { useLocation } from "react-router-dom";
-import { KeywordContext } from  "../../contexts/KeywordContext.js";
+import { KeywordContext } from "../../contexts/KeywordContext.js";
 import { SavedArticlesContext } from "../../contexts/SavedArticlesContext";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
-import { useContext,  useState } from "react";
+import { useContext, useState } from "react";
 
 function NewsCard({
   newsData,
@@ -12,7 +12,7 @@ function NewsCard({
   onClick,
 }) {
   let formattedDate;
- 
+
   if (newsData.publishedAt) {
     formattedDate = new Date(newsData.publishedAt).toLocaleDateString(
       "default",
@@ -26,9 +26,8 @@ function NewsCard({
     formattedDate = "";
   }
 
-   const location = useLocation();
+  const location = useLocation();
 
- 
   const { savedArticles } = useContext(SavedArticlesContext);
   const { keyword } = useContext(KeywordContext);
   const { isLoggedIn } = useContext(CurrentUserContext);
@@ -41,11 +40,10 @@ function NewsCard({
   const handleRemoveClick = () => {
     handleRemoveArticle({ newsData });
   };
-  
-const isAlreadySaved = savedArticles.some(
-  (savedArticle) => savedArticle.link === newsData.url
-);
 
+  const isAlreadySaved = savedArticles.some(
+    (savedArticle) => savedArticle.link === newsData.url
+  );
 
   return (
     <section className="news-card">
@@ -58,7 +56,8 @@ const isAlreadySaved = savedArticles.some(
               <div
                 className={`news-card__popup-text ${
                   isHovered ? "" : "news-card__popup-text_hidden"
-                }`}>
+                }`}
+              >
                 Remove from saved
               </div>
               <button
@@ -71,12 +70,13 @@ const isAlreadySaved = savedArticles.some(
           </>
         )}
 
-        {isLoggedIn && location.pathname=== "/" && (
+        {isLoggedIn && location.pathname === "/" && (
           <div className="news-card__button-container">
             <div
               className={`news-card__popup-text ${
                 isHovered ? "" : "news-card__popup-text_hidden"
-              }`}>
+              }`}
+            >
               {savedArticles.some(
                 (savedArticles) => savedArticles.link === newsData.url
               )
@@ -91,9 +91,7 @@ const isAlreadySaved = savedArticles.some(
                   ? "news-card__button-bookmark_marked"
                   : ""
               }`}
-              onClick={
-                isAlreadySaved ? handleRemoveClick : handleBookmarkClick
-              }
+              onClick={isAlreadySaved ? handleRemoveClick : handleBookmarkClick}
               onMouseEnter={() => setIsHovered(true)}
               onMouseLeave={() => setIsHovered(false)}
             />
@@ -105,7 +103,8 @@ const isAlreadySaved = savedArticles.some(
             <div
               className={`news-card__popup-text ${
                 isHovered ? "" : "news-card__popup-text_hidden"
-              }`}>
+              }`}
+            >
               Sign in to save articles
             </div>
             <button
@@ -120,28 +119,26 @@ const isAlreadySaved = savedArticles.some(
 
       {/* Content container */}
       <div className="news-card__content">
-        
-          {newsData.urlToImage && (
-            <img
-              className="news-card__image"
-              src={newsData.urlToImage}
-              alt={newsData.title}
-            />
-          )}
+        {newsData.urlToImage && (
+          <img
+            className="news-card__image"
+            src={newsData.urlToImage}
+            alt={newsData.title}
+          />
+        )}
 
-          <header className="news-card__text">
-            <p className="news-card__date">{formattedDate}</p>
-            <h3 className="news-card__title">{newsData.title}</h3>
-            <p className="news-card__description">
-              {newsData.text || newsData.description}
+        <header className="news-card__text">
+          <p className="news-card__date">{formattedDate}</p>
+          <h3 className="news-card__title">{newsData.title}</h3>
+          <p className="news-card__description">
+            {newsData.text || newsData.description}
+          </p>
+          {newsData.source && (
+            <p className="news-card__source">
+              {newsData.source.name || newsData.source}
             </p>
-            {newsData.source && (
-              <p className="news-card__source">
-                {newsData.source.name || newsData.source}
-              </p>
-            )}
-          </header>
-        
+          )}
+        </header>
       </div>
     </section>
   );

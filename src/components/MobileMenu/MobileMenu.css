@@ -80,9 +80,7 @@
 .mobile-menu__close-button_logged-in .mobile-menu__close-button-line {
   background-color: #000;
 }
-/* .mobile-menu__close-button_logged-in{
-  background-color: #000;
-} */
+
 .mobile-menu__nav {
   padding: 22px 16px;
   display: flex;

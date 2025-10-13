@@ -1,4 +1,4 @@
-import { APIKey, newsApiBaseUrl,parsePreviousWeek } from "./constants";
+import { APIKey, newsApiBaseUrl, parsePreviousWeek } from "./constants";
 
 export const getSearchResult = (keyWord) => {
   if (!keyWord) {

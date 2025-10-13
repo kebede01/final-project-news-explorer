@@ -2,13 +2,11 @@ import "./RegisterModal.css";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import { useState } from "react";
 
-
 function RegisterModal({
   onClose,
   isOpen,
   title,
   onLoginClick,
-  // onRegisterClick,
   onRegister,
 }) {
   const [emailRegister, setEmailRegister] = useState("");
@@ -55,7 +53,7 @@ function RegisterModal({
           onChange={handleEmailRegister}
           placeholder="Email"
           required
-          autoComplete="email" 
+          autoComplete="email"
         />
       </label>
       <label htmlFor="password-1" className="modal__label">
@@ -69,7 +67,7 @@ function RegisterModal({
           onChange={handlePasswordRegister}
           placeholder="Password"
           required
-          autoComplete="new-password" 
+          autoComplete="new-password"
         />
       </label>
       <label htmlFor="username-1" className="modal__label">
@@ -83,14 +81,10 @@ function RegisterModal({
           onChange={handleNameRegister}
           placeholder="Username"
           required
-           autoComplete="username"
+          autoComplete="username"
         />
       </label>
-      <button
-        type="submit"
-        className="register-modal__register-button"
-      
-      >
+      <button type="submit" className="register-modal__register-button">
         Sign up
       </button>
       <button

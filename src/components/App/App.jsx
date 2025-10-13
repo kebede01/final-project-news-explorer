@@ -23,12 +23,38 @@ import SavedNews from "../SavedNews/SavedNews";
 function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [searchResult, setSearchResult] = useState([]);
+  const [searchResult, setSearchResult] = useState([
+    {
+      _id: "65f7368dfb74bd6a92114c85",
+      author: "author",
+      title: "title",
+      description: "description",
+      url: "https://example.com",
+      urlToImage: "https://image.com",
+      publishedAt: "2025-10-01T19:45:48Z",
+      content: "content",
+      source: "source",
+      keyword: "keyword",
+    },
+  ]);
 
   const [hasSearched, setHasSearched] = useState(false);
   const [searchError, setSearchError] = useState(false);
-  const [keyWord, setKeyWord] = useState("");
-  const [savedArticles, setSavedArticles] = useState([]);
+  const [keyWord, setKeyWord] = useState("keyword");
+  const [savedArticles, setSavedArticles] = useState([
+    {
+      _id: "65f7368dfb74bd6a92114c85",
+      author: "author",
+      title: "title",
+      description: "description",
+      url: "https://example.com",
+      urlToImage: "https://image.com",
+      publishedAt: "2025-10-01T19:45:48Z",
+      content: "content",
+      source: "source",
+      keyword: "keyword",
+    },
+  ]);
   const [activeModal, setActiveModal] = useState("");
   const [currentUser, setCurrentUser] = useState({
     name: "",
@@ -76,8 +102,8 @@ function App() {
     setIsLoggedIn(false);
   };
 
-  const handleSignUp = () => {
-    register()
+  const handleSignUp = ({ email, password }) => {
+    register({ email, password })
       .then((res) => {
         setCurrentUser({
           name: res.data.name,

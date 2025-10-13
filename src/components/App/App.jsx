@@ -40,7 +40,7 @@ function App() {
 
   const [hasSearched, setHasSearched] = useState(false);
   const [searchError, setSearchError] = useState(false);
-  const [keyWord, setKeyWord] = useState("keyword");
+  const [keyWord, setKeyWord] = useState("");
   const [savedArticles, setSavedArticles] = useState([
     {
       _id: "65f7368dfb74bd6a92114c85",

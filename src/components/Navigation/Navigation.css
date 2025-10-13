@@ -128,7 +128,7 @@
   height: 80px;
 }
 
-.navigation__link:hover {
+.navigation__link_logged:hover {
   color: rgb(123, 123, 223);
 }
 

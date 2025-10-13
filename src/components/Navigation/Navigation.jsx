@@ -41,7 +41,7 @@ function Navigation({ onLoginClick, onLogout }) {
 
   const navLinkClassUnderline = `navigation__link_underline ${
     location.pathname === "/saved-news"
-      ? "navigation__link black"
+      ? "navigation__link black marked"
       : "navigation__link"
   } `;
   return (
@@ -68,7 +68,7 @@ function Navigation({ onLoginClick, onLogout }) {
               className={
                 location.pathname === "/saved-news"
                   ? "navigation__link black marked"
-                  : "navigation__link"
+                  : "navigation__link navigation__link_logged"
               }
             >
               Saved articles

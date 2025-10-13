@@ -1,8 +1,8 @@
 import "./NewsCard.css";
 import { useLocation } from "react-router-dom";
-import { keywordContext } from  "../../contexts/keywordContext.js";
-import { savedArticlesContext } from "../../contexts/savedArticlesContext";
-import { currentUserContext } from "../../contexts/currentUserContext";
+import { KeywordContext } from  "../../contexts/KeywordContext.js";
+import { SavedArticlesContext } from "../../contexts/SavedArticlesContext";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import { useContext,  useState } from "react";
 
 function NewsCard({
@@ -29,9 +29,9 @@ function NewsCard({
    const location = useLocation();
 
  
-  const { savedArticles } = useContext(savedArticlesContext);
-  const { keyword } = useContext(keywordContext);
-  const { isLoggedIn } = useContext(currentUserContext);
+  const { savedArticles } = useContext(SavedArticlesContext);
+  const { keyword } = useContext(KeywordContext);
+  const { isLoggedIn } = useContext(CurrentUserContext);
   const [isHovered, setIsHovered] = useState(false);
 
   const handleBookmarkClick = () => {

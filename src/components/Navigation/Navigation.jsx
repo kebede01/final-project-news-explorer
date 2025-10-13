@@ -4,11 +4,11 @@ import { NavLink } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import logOutWhite from "../../assets/logout_white.svg";
 import logOutBlack from "../../assets/logout_black.svg";
-import { currentUserContext } from "../../contexts/currentUserContext";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import "../MobileMenu/MobileMenu";
 import MobileMenu from "../MobileMenu/MobileMenu";
 function Navigation({ onLoginClick, onLogout }) {
-  const { currentUser, isLoggedIn } = useContext(currentUserContext);
+  const { currentUser, isLoggedIn } = useContext(CurrentUserContext);
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   console.log(isMenuOpen);
@@ -67,7 +67,7 @@ function Navigation({ onLoginClick, onLogout }) {
               to="/saved-news"
               className={
                 location.pathname === "/saved-news"
-                  ? "navigation__link black"
+                  ? "navigation__link black marked"
                   : "navigation__link"
               }
             >

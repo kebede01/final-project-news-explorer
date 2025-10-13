@@ -1,3 +1,3 @@
 import React from "react";
 
-export const savedArticlesContext = React.createContext();
+export const SavedArticlesContext = React.createContext();

@@ -1,6 +1,5 @@
-import { hasSearchedContext } from "../../contexts/hasSearchedContext"
-// import { KeyWordContext } from "../../contexts/KeywordContext"
-import { searchResultContext } from "../../contexts/searchResultContext"
+import { HasSearchedContext } from "../../contexts/HasSearchedContext"
+import { SearchResultContext } from "../../contexts/SearchResultContext"
 import Header from "../Header/Header"
 import Preloader from "../Preloader/Preloader"
 import About from "../About/About"
@@ -19,8 +18,8 @@ function Main({
  handleRemoveArticle,
   handleSaveArticle,
 }) {
-  const { searchResult } = useContext(searchResultContext);
-  const { hasSearched } = useContext(hasSearchedContext);
+  const { searchResult } = useContext(SearchResultContext);
+  const { hasSearched } = useContext(HasSearchedContext);
  
 
   return (

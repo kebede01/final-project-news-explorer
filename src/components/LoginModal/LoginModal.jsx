@@ -1,15 +1,11 @@
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import "./LoginModal.css";
 import { useState } from "react";
-// import { useEffect, useContext } from "react";
-// import { useForm } from "../../Hooks/useForm";
-// import { currentUserContext } from "../../contexts/currentUserContext";
 
 function LoginModal({
   onClose,
   isOpen,
   title,
-  // onLoginClick,
   onRegisterClick,
   onLogIn,
 }) {

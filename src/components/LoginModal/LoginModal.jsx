@@ -3,8 +3,8 @@ import "./LoginModal.css";
 import { useState } from "react";
 
 function LoginModal({ onClose, isOpen, title, onRegisterClick, onLogIn }) {
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const handleEmail = (e) => {
     setEmail(e.target.value);
   };

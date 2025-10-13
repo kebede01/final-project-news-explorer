@@ -85,3 +85,7 @@
   font-style: normal;
   line-height: 14.52px;
 }
+.modal__input::placeholder{
+  color: rgba(0, 0, 0, 0.2);
+
+}

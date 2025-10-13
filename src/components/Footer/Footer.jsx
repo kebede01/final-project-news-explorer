@@ -3,7 +3,7 @@ import vector from "../../assets/github.svg";
 import union from "../../assets/union.png";
 function Footer() {
   return (
-    <section className="footer">
+    <footer className="footer">
       <div className="footer-content">
         <div className="footer-year">© 2024 Supersite, Powered by News API</div>
         <div className="footer-links">
@@ -25,7 +25,7 @@ function Footer() {
           </div>
         </div>
       </div>
-    </section>
+    </footer>
   );
 }
 export default Footer;

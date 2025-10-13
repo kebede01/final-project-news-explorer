@@ -47,6 +47,8 @@ function LoginModal({
           onChange={handleEmail}
           placeholder="Email"
           required
+          autoComplete="username" 
+          
         />
       </label>
       <label htmlFor="password-2" className="modal__label">
@@ -60,6 +62,9 @@ function LoginModal({
           onChange={handlePassword}
           placeholder="Password"
           required
+         autoComplete="current-password"
+
+
         />
       </label>
 

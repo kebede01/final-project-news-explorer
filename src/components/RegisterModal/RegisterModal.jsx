@@ -56,6 +56,7 @@ function RegisterModal({
           onChange={handleEmailRegister}
           placeholder="Email"
           required
+          autoComplete="email" 
         />
       </label>
       <label htmlFor="password-1" className="modal__label">
@@ -69,6 +70,7 @@ function RegisterModal({
           onChange={handlePasswordRegister}
           placeholder="Password"
           required
+          autoComplete="new-password" 
         />
       </label>
       <label htmlFor="username-1" className="modal__label">
@@ -82,6 +84,7 @@ function RegisterModal({
           onChange={handleNameRegister}
           placeholder="Username"
           required
+           autoComplete="username"
         />
       </label>
       <button

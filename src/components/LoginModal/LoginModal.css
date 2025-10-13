@@ -69,10 +69,16 @@
 
 @media screen and (max-width: 320px) {
   .modal {
-    max-width: 250px;
+    max-width: 320px;
     width: 100%;
     margin: 0 auto;
     padding: 20px;
+    padding-left: 0px;
+  }
+
+   .modal__close-button {
+    top: -50px;
+    right: 3px;
   }
 
   .register-modal__signin-button {

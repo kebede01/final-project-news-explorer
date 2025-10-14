@@ -21,6 +21,9 @@
   gap: 40px;
 }
 
+.footer-links__text > a{
+  text-decoration: none;
+}
 .footer-links__text {
   display: flex;
   gap: 40px;

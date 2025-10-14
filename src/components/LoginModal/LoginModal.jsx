@@ -13,10 +13,15 @@ function LoginModal({ onClose, isOpen, title, onRegisterClick, onLogIn }) {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    onLogIn(email, password);
-    onClose();
-    setEmail("");
-    setPassword("");
+    onLogIn()
+      .then(() => {
+        onClose();
+        setEmail("");
+        setPassword("");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   return (
     <ModalWithForm
@@ -50,6 +55,7 @@ function LoginModal({ onClose, isOpen, title, onRegisterClick, onLogIn }) {
           value={password}
           onChange={handlePassword}
           placeholder="Password"
+          minLength={6}
           required
           autoComplete="current-password"
         />

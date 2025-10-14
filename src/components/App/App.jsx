@@ -102,8 +102,8 @@ function App() {
     setIsLoggedIn(false);
   };
 
-  const handleSignUp = ({ email, password }) => {
-    register({ email, password })
+  const handleSignUp = () => {
+   return register()
       .then((res) => {
         setCurrentUser({
           name: res.data.name,
@@ -118,25 +118,19 @@ function App() {
       });
   };
 
-  const handleSignIn = ({ email, password }) => {
-    authorize({ email, password })
+  const handleSignIn = () => {
+    return authorize()
       .then(() => {
-        checkToken()
-          .then((res) => {
-            setCurrentUser({
-              name: res.data.name,
-              email: res.data.email,
-              _id: res.data._id,
-            });
-            setIsLoggedIn(true);
-            onClose();
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+        return checkToken();
       })
-      .catch((err) => {
-        console.log(err);
+      .then((res) => {
+        setCurrentUser({
+          name: res.data.name,
+          email: res.data.email,
+          _id: res.data._id,
+        });
+        setIsLoggedIn(true);
+        
       });
   };
 

@@ -2,13 +2,7 @@ import "./RegisterModal.css";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import { useState } from "react";
 
-function RegisterModal({
-  onClose,
-  isOpen,
-  title,
-  onLoginClick,
-  onRegister,
-}) {
+function RegisterModal({ onClose, isOpen, title, onLoginClick, onRegister }) {
   const [emailRegister, setEmailRegister] = useState("");
   const [passwordRegister, setPasswordRegister] = useState("");
   const [nameRegister, setNameRegister] = useState("");
@@ -27,11 +21,15 @@ function RegisterModal({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onRegister(emailRegister, passwordRegister);
-    setNameRegister("");
-    setEmailRegister("");
-    setPasswordRegister("");
-    onClose();
+    onRegister()
+      .then(() => {
+        setNameRegister("");
+        setEmailRegister("");
+        setPasswordRegister("");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -64,6 +62,7 @@ function RegisterModal({
           name="password"
           id="password-1"
           value={passwordRegister}
+          minLength={6}
           onChange={handlePasswordRegister}
           placeholder="Password"
           required
@@ -80,6 +79,8 @@ function RegisterModal({
           value={nameRegister}
           onChange={handleNameRegister}
           placeholder="Username"
+          minLength={2}
+          maxLength={20}
           required
           autoComplete="username"
         />

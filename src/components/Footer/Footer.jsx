@@ -24,7 +24,11 @@ function Footer() {
             </a>
           </div>
           <div className="footer-links__icon">
-            <a href="https://www.github.com/" rel="noopener noreferrer"   target="_blank">
+            <a
+              href="https://www.github.com/"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
               <img
                 src={vector}
                 alt="vector icon"
@@ -32,14 +36,17 @@ function Footer() {
               />
             </a>
 
-            <a  href="https://www.linkedin.com/" rel="noopener noreferrer"   target="_blank">
-                <img
-              src={union}
-              alt="union icon"
-              className="footer-links__icon-img"
-            />
+            <a
+              href="https://www.linkedin.com/"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                src={union}
+                alt="union icon"
+                className="footer-links__icon-img"
+              />
             </a>
-          
           </div>
         </div>
       </div>

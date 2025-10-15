@@ -20,13 +20,13 @@
 }
 
 .modal__title_type_success {
-  font-family: "Roboto";
+ font-family: "Roboto", Arial, sans-serif;
   font-style: normal;
   color: rgba(0, 0, 0, 1);
   margin-top: 0;
   margin-left: 0;
   width: 315px;
-  font-family: Roboto;
+   font-family: "Roboto", Arial, sans-serif;
   font-weight: 900;
   font-size: 24px;
   line-height: 100%;

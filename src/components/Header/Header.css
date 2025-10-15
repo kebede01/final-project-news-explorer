@@ -26,7 +26,7 @@
 }
 
 .header__title {
-  font-family: Roboto Slab;
+ font-family: "Roboto-Slab", Arial, sans-serif;
   font-weight: 400;
   font-size: 60px;
 
@@ -41,7 +41,7 @@
 .header__subtitle {
   margin: 0;
 
-  font-family: Roboto;
+ font-family: "Roboto", Arial, sans-serif;
   font-weight: 400;
   font-size: 18px;
   color: rgba(255, 255, 255, 1);
@@ -59,7 +59,7 @@
   }
 
   .header__title {
-    font-family: Roboto Slab;
+    font-family: "Roboto-Slab", Arial, sans-serif;
     font-weight: 400;
     font-size: 36px;
 
@@ -68,7 +68,7 @@
   }
 
   .header__subtitle {
-    font-family: Roboto;
+   font-family: "Roboto", Arial, sans-serif;
     font-weight: 400;
     font-size: 18px;
     line-height: 24px;
@@ -78,7 +78,7 @@
 
 @media screen and (max-width: 320px) {
   .header__title {
-    font-family: Roboto Slab;
+    font-family: "Roboto-Slab", Arial, sans-serif;
     font-weight: 400;
     font-size: 30px;
     color: rgba(26, 27, 34, 1);

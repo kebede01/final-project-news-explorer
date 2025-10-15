@@ -41,7 +41,7 @@ function Navigation({ onLoginClick, onLogout }) {
 
   const navLinkClassUnderline = `navigation__link_underline ${
     location.pathname === "/saved-news"
-      ? "navigation__link black marked"
+      ? "navigation__link black "
       : "navigation__link"
   } `;
   return (
@@ -77,7 +77,11 @@ function Navigation({ onLoginClick, onLogout }) {
 
           {isLoggedIn ? (
             <button
-              className="navigation__button navigation__button_logged-in"
+              className={`navigation__button navigation__button_logged-in ${
+                location.pathname === "/saved-news"
+                  ? "navigation__button_white"
+                  : ""
+              } ${location.pathname === "/" ? "navigation__button_black" : ""}`}
               onClick={onLogout}
             >
               <span

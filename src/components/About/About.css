@@ -36,7 +36,7 @@
   margin-bottom: 24px;
   max-width: 600px;
   width: 100%;
-  font-family: Roboto Slab;
+   font-family: "Roboto-Slab", Arial, sans-serif;
   font-weight: 400;
   font-size: 40px;
   line-height: 46px;
@@ -46,7 +46,7 @@
 .about__content-description {
   max-width: 600px;
   width: 100%;
-  font-family: Roboto;
+  font-family: Roboto, Arial, sans-serif;
   font-weight: 400;
   font-size: 18px;
   line-height: 24px;

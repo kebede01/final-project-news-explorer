@@ -2,7 +2,7 @@ import "./SearchForm.css";
 // import { useEffect } from 'react';
 
 import { useContext } from "react";
-import { KeywordContext } from "../../contexts/KeyWordContext";
+import { KeywordContext } from "../../contexts/KeywordContext";
 import { HasSearchedContext } from "../../contexts/HasSearchedContext";
 
 function SearchForm({ handleSearch }) {

@@ -29,12 +29,12 @@ function NewsCard({
   const location = useLocation();
 
   const { savedArticles } = useContext(SavedArticlesContext);
-  const { keyword } = useContext(KeywordContext);
+  const { keyWord } = useContext(KeywordContext);
   const { isLoggedIn } = useContext(CurrentUserContext);
   const [isHovered, setIsHovered] = useState(false);
 
   const handleBookmarkClick = () => {
-    handleSaveArticle({ newsData, keyword });
+    handleSaveArticle({ newsData, keyWord });
   };
 
   const handleRemoveClick = () => {
@@ -44,7 +44,7 @@ function NewsCard({
   const isAlreadySaved = savedArticles.some(
     (savedArticle) => savedArticle.link === newsData.url
   );
-
+  console.log(keyWord);
   return (
     <section className="news-card">
       {/* Controls container */}

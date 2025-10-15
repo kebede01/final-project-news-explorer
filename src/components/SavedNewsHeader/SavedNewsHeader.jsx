@@ -10,7 +10,10 @@ function SavedNewsHeader() {
   const userArticles = savedArticles.filter(
     (article) => article.owner === currentUser._id
   );
+  console.log(userArticles);
+
   const keywordArray = userArticles.map((article) => article?.keyword);
+
   const capitalizedFirstLetter = keywordArray.map((string) => {
     return string?.charAt(0).toUpperCase() + string?.slice(1);
   });

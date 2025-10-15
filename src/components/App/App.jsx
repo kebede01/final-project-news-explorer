@@ -103,7 +103,7 @@ function App() {
   };
 
   const handleSignUp = () => {
-   return register()
+    return register()
       .then((res) => {
         setCurrentUser({
           name: res.data.name,
@@ -130,7 +130,6 @@ function App() {
           _id: res.data._id,
         });
         setIsLoggedIn(true);
-        
       });
   };
 
@@ -147,10 +146,11 @@ function App() {
       });
   };
 
-  const handleSaveArticle = ({ newsData, keyword }) => {
+  const handleSaveArticle = ({ newsData, keyWord }) => {
     if (!savedArticles.find((article) => article.link === newsData.url)) {
-      addSavedArticle(newsData, keyword)
+      addSavedArticle(newsData, keyWord)
         .then((res) => {
+          console.log(res);
           setSavedArticles([res, ...savedArticles]);
           const savedArticlesId = res._id;
           const newArticle = { ...newsData, _id: savedArticlesId };

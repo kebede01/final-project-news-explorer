@@ -30,7 +30,7 @@
   background-color: white;
   padding: 8px 22px;
   text-align: center;
-  font-family: "Roboto", Arial, sans-serif;
+   font-family: "Roboto", Arial, sans-serif;
   font-size: 14px;
   font-weight: 500;
   line-height: 1.7;
@@ -87,7 +87,7 @@
 .news-card__button-bookmark {
   background: transparent url(../../assets/bookmark.svg);
   background-repeat: no-repeat;
-   background-position: center;
+  background-position: center;
   width: 40px;
   height: 40px;
   border-radius: 8px;
@@ -99,15 +99,15 @@
 }
 
 .news-card__button-bookmark:hover {
-  background: transparent url(../../assets/bookmark_hover.svg);
+  background: transparent url(../../assets/bookmark-hover.svg);
   background-repeat: no-repeat;
-   background-position: center;
+  background-position: center;
 }
 
 .news-card__button-bookmark_marked {
-  background: transparent url(../../assets/bookmark_blue.svg);
+  background: transparent url(../../assets/bookmark-blue.svg);
   background-repeat: no-repeat;
-   background-position: center;
+  background-position: center;
 }
 
 .news-card__content {
@@ -141,7 +141,7 @@
 }
 
 .news-card__title {
-  font-family: "Roboto-Slab-400";
+  font-family: "Roboto-Slab-400", Arial, sans-serif;
   font-size: 26px;
   line-height: 30px;
   font-weight: 400;
@@ -155,7 +155,7 @@
 }
 
 .news-card__description {
-  font-family: "Roboto";
+  font-family: "Roboto", Arial, sans-serif;
   font-size: 16px;
   line-height: 22px;
   font-weight: 400;
@@ -169,7 +169,7 @@
 }
 
 .news-card__source {
-  font-family: "Roboto-Slab";
+  font-family: "Roboto-Slab", Arial, sans-serif;
   font-size: 16px;
   font-style: normal;
   line-height: 20px;
@@ -197,7 +197,6 @@
   }
 
   .news-card__description {
-  
     height: auto;
     -webkit-line-clamp: 5;
     line-clamp: 5;
@@ -209,7 +208,6 @@
   }
 
   .news-card__title {
-  
     height: 52px;
     margin-top: 8px;
   }
@@ -239,7 +237,6 @@
   }
 
   .news-card__description {
-   
     margin-top: 10px;
     height: auto;
     -webkit-line-clamp: 8;
@@ -262,7 +259,7 @@
   }
 
   .news-card__title {
-   margin-top: 10px;
+    margin-top: 10px;
   }
 
   .news-card__source {
@@ -284,9 +281,9 @@
     height: 168px;
   }
 
-   .news-card__title {
-     font-size: 22px;
-  line-height: 24px;
-   margin-top: 10px;
+  .news-card__title {
+    font-size: 22px;
+    line-height: 24px;
+    margin-top: 10px;
   }
 }

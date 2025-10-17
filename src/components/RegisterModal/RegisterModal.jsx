@@ -1,17 +1,8 @@
 import "./RegisterModal.css";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import { useState } from "react";
-// import { useForm } from "../../Hooks/useForm";
-// import { currentUserContext } from "../../contexts/currentUserContext";
 
-function RegisterModal({
-  onClose,
-  isOpen,
-  title,
-  onLoginClick,
-  onRegisterClick,
-  onRegister,
-}) {
+function RegisterModal({ onClose, isOpen, title, onLoginClick, onRegister }) {
   const [emailRegister, setEmailRegister] = useState("");
   const [passwordRegister, setPasswordRegister] = useState("");
   const [nameRegister, setNameRegister] = useState("");
@@ -30,11 +21,15 @@ function RegisterModal({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onRegister(emailRegister, passwordRegister);
-    setNameRegister("");
-    setEmailRegister("");
-    setPasswordRegister("");
-    onClose();
+    onRegister()
+      .then(() => {
+        setNameRegister("");
+        setEmailRegister("");
+        setPasswordRegister("");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -45,50 +40,52 @@ function RegisterModal({
       buttonText={"or Log in"}
       onSubmit={handleSubmit}
     >
-      <label htmlFor="email" className="modal__label">
+      <label htmlFor="email-1" className="modal__label">
         Email
         <input
           className="modal__input "
           type="email"
           name="email"
-          id="email"
+          id="email-1"
           value={emailRegister}
           onChange={handleEmailRegister}
           placeholder="Email"
           required
+          autoComplete="email"
         />
       </label>
-      <label htmlFor="password" className="modal__label">
+      <label htmlFor="password-1" className="modal__label">
         Password
         <input
           className="modal__input"
           type="password"
           name="password"
-          id="password"
+          id="password-1"
           value={passwordRegister}
+          minLength={6}
           onChange={handlePasswordRegister}
           placeholder="Password"
           required
+          autoComplete="new-password"
         />
       </label>
-      <label htmlFor="username" className="modal__label">
+      <label htmlFor="username-1" className="modal__label">
         Username
         <input
           className="modal__input"
           type="text"
           name="username"
-          id="username"
+          id="username-1"
           value={nameRegister}
           onChange={handleNameRegister}
           placeholder="Username"
+          minLength={2}
+          maxLength={20}
           required
+          autoComplete="username"
         />
       </label>
-      <button
-        type="submit"
-        className="register-modal__register-button"
-      
-      >
+      <button type="submit" className="register-modal__register-button">
         Sign up
       </button>
       <button

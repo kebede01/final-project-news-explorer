@@ -1,20 +1,10 @@
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import "./LoginModal.css";
 import { useState } from "react";
-// import { useEffect, useContext } from "react";
-// import { useForm } from "../../Hooks/useForm";
-// import { currentUserContext } from "../../contexts/currentUserContext";
 
-function LoginModal({
-  onClose,
-  isOpen,
-  title,
-  onLoginClick,
-  onRegisterClick,
-  onLogIn,
-}) {
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+function LoginModal({ onClose, isOpen, title, onRegisterClick, onLogIn }) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const handleEmail = (e) => {
     setEmail(e.target.value);
   };
@@ -23,10 +13,15 @@ function LoginModal({
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    onLogIn(email, password);
-    onClose();
-    setEmail("");
-    setPassword("");
+    onLogIn()
+      .then(() => {
+        onClose();
+        setEmail("");
+        setPassword("");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   return (
     <ModalWithForm
@@ -36,30 +31,33 @@ function LoginModal({
       onSubmit={handleSubmit}
       buttonText={"or Log in"}
     >
-      <label htmlFor="email" className="modal__label">
+      <label htmlFor="email-2" className="modal__label">
         Email
         <input
           className="modal__input "
           type="email"
           name="email"
-          id="email"
+          id="email-2"
           value={email}
           onChange={handleEmail}
           placeholder="Email"
           required
+          autoComplete="username"
         />
       </label>
-      <label htmlFor="password" className="modal__label">
+      <label htmlFor="password-2" className="modal__label">
         Password
         <input
           className="modal__input"
           type="password"
           name="password"
-          id="password"
+          id="password-2"
           value={password}
           onChange={handlePassword}
           placeholder="Password"
+          minLength={6}
           required
+          autoComplete="current-password"
         />
       </label>
 

@@ -7,12 +7,12 @@ import LoginModal from "../LoginModal/LoginModal.jsx";
 import RegisterSuccessModal from "../RegisterSuccessModal/RegisterSuccessModal.jsx";
 import { checkToken, authorize, register } from "../../utils/auth.js";
 import { getSearchResult } from "../../utils/newsAPI.js";
-import { keywordContext } from "../../contexts/keywordContext.js";
-import { hasSearchedContext } from "../../contexts/hasSearchedContext.js";
-import { currentUserContext } from "../../contexts/currentUserContext.js";
-import { savedArticlesContext } from "../../contexts/savedArticlesContext";
+import { KeywordContext } from "../../contexts/KeywordContext.js";
+import { HasSearchedContext } from "../../contexts/HasSearchedContext.js";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext.js";
+import { SavedArticlesContext } from "../../contexts/SavedArticlesContext";
 
-import { searchResultContext } from "../../contexts/searchResultContext.js";
+import { SearchResultContext } from "../../contexts/SearchResultContext.js";
 import Main from "../Main/Main.jsx";
 import {
   getSavedArticles,
@@ -23,12 +23,38 @@ import SavedNews from "../SavedNews/SavedNews";
 function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [searchResult, setSearchResult] = useState([]);
+  const [searchResult, setSearchResult] = useState([
+    {
+      _id: "65f7368dfb74bd6a92114c85",
+      author: "author",
+      title: "title",
+      description: "description",
+      url: "https://example.com",
+      urlToImage: "https://image.com",
+      publishedAt: "2025-10-01T19:45:48Z",
+      content: "content",
+      source: "source",
+      keyword: "keyword",
+    },
+  ]);
 
   const [hasSearched, setHasSearched] = useState(false);
   const [searchError, setSearchError] = useState(false);
   const [keyWord, setKeyWord] = useState("");
-  const [savedArticles, setSavedArticles] = useState([]);
+  const [savedArticles, setSavedArticles] = useState([
+    {
+      _id: "65f7368dfb74bd6a92114c85",
+      author: "author",
+      title: "title",
+      description: "description",
+      url: "https://example.com",
+      urlToImage: "https://image.com",
+      publishedAt: "2025-10-01T19:45:48Z",
+      content: "content",
+      source: "source",
+      keyword: "keyword",
+    },
+  ]);
   const [activeModal, setActiveModal] = useState("");
   const [currentUser, setCurrentUser] = useState({
     name: "",
@@ -77,7 +103,7 @@ function App() {
   };
 
   const handleSignUp = () => {
-    register()
+    return register()
       .then((res) => {
         setCurrentUser({
           name: res.data.name,
@@ -92,25 +118,18 @@ function App() {
       });
   };
 
-  const handleSignIn = ({ email, password }) => {
-    authorize({ email, password })
+  const handleSignIn = () => {
+    return authorize()
       .then(() => {
-        checkToken()
-          .then((res) => {
-            setCurrentUser({
-              name: res.data.name,
-              email: res.data.email,
-              _id: res.data._id,
-            });
-            setIsLoggedIn(true);
-            onClose();
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+        return checkToken();
       })
-      .catch((err) => {
-        console.log(err);
+      .then((res) => {
+        setCurrentUser({
+          name: res.data.name,
+          email: res.data.email,
+          _id: res.data._id,
+        });
+        setIsLoggedIn(true);
       });
   };
 
@@ -127,10 +146,11 @@ function App() {
       });
   };
 
-  const handleSaveArticle = ({ newsData, keyword }) => {
+  const handleSaveArticle = ({ newsData, keyWord }) => {
     if (!savedArticles.find((article) => article.link === newsData.url)) {
-      addSavedArticle(newsData, keyword)
+      addSavedArticle(newsData, keyWord)
         .then((res) => {
+          console.log(res);
           setSavedArticles([res, ...savedArticles]);
           const savedArticlesId = res._id;
           const newArticle = { ...newsData, _id: savedArticlesId };
@@ -203,18 +223,18 @@ function App() {
   }, []);
 
   return (
-    <hasSearchedContext.Provider value={{ hasSearched, setHasSearched }}>
-      <keywordContext.Provider value={{ keyWord, setKeyWord }}>
-        <currentUserContext.Provider value={{ isLoggedIn, currentUser }}>
-          <savedArticlesContext.Provider
+    <HasSearchedContext.Provider value={{ hasSearched, setHasSearched }}>
+      <KeywordContext.Provider value={{ keyWord, setKeyWord }}>
+        <CurrentUserContext.Provider value={{ isLoggedIn, currentUser }}>
+          <SavedArticlesContext.Provider
             value={{ savedArticles, setSavedArticles }}
           >
-            <searchResultContext.Provider
+            <SearchResultContext.Provider
               value={{ searchResult, setSearchResult }}
             >
               <div className="page">
                 <div className="page__content">
-                  <BrowserRouter>
+                  <BrowserRouter basename="/final-project-news-explorer">
                     <Routes>
                       <Route
                         path="/"
@@ -268,11 +288,11 @@ function App() {
                   />
                 </div>
               </div>
-            </searchResultContext.Provider>
-          </savedArticlesContext.Provider>
-        </currentUserContext.Provider>
-      </keywordContext.Provider>
-    </hasSearchedContext.Provider>
+            </SearchResultContext.Provider>
+          </SavedArticlesContext.Provider>
+        </CurrentUserContext.Provider>
+      </KeywordContext.Provider>
+    </HasSearchedContext.Provider>
   );
 }
 export default App;

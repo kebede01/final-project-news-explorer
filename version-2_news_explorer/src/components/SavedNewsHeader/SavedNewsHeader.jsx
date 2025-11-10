@@ -1,0 +1,49 @@
+import "./SavedNewsHeader.css";
+import { useContext } from "react";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import { SavedArticlesContext } from "../../contexts/SavedArticlesContext";
+
+function SavedNewsHeader() {
+  const { currentUser } = useContext(CurrentUserContext);
+  const { savedArticles } = useContext(SavedArticlesContext);
+
+  const userArticles = savedArticles.filter(
+    (article) => article.owner === currentUser._id
+  );
+  // console.log(userArticles);
+
+  const keywordArray = userArticles.map((article) => article?.keyWord);
+
+  const capitalizedFirstLetter = keywordArray.map((string) => {
+    return string?.charAt(0).toUpperCase() + string?.slice(1);
+  });
+
+  const getKeywordString = (keyWord) => {
+    const uniqueKeywords = [...new Set(keyWord)];
+    if (uniqueKeywords.length <= 2) {
+      return uniqueKeywords.join(", ");
+    } else {
+      return `${uniqueKeywords[0]}, ${uniqueKeywords[1]}, and ${
+        uniqueKeywords.length - 2
+      } other`;
+    }
+  };
+
+  return (
+    <section className="saved-news-header">
+      <h1 className="saved-news-header__title">Saved Articles</h1>
+      <h2 className="saved-news-header__subtitle">
+        {currentUser.name}, you have {userArticles.length} saved article
+        {userArticles.length !== 1 && "s"}
+      </h2>
+      <div className="saved-news-header__keywords-container">
+        <p className="saved-news-header__keywords-title">By keywords:</p>
+        <p className="saved-news-header__keywords">
+          {getKeywordString(capitalizedFirstLetter)}
+        </p>
+      </div>
+    </section>
+  );
+}
+
+export default SavedNewsHeader;

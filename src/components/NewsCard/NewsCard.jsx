@@ -12,7 +12,7 @@ function NewsCard({
   onClick,
 }) {
   let formattedDate;
- 
+  console.log(`NEWS DATA IS ${JSON.stringify(newsData)}`);
   if (newsData.publishedAt) {
     formattedDate = new Date(newsData.publishedAt).toLocaleDateString(
       "default",

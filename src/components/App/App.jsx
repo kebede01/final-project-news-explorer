@@ -1,36 +1,61 @@
 import { useState, useEffect } from "react";
 import "./App.css";
-import { Routes, Route, BrowserRouter, Navigate } from "react-router-dom";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
 
-import RegisterModal from "../RegisterModal/RegisterModal";
-import LoginModal from "../LoginModal/LoginModal.jsx";
-import RegisterSuccessModal from "../RegisterSuccessModal/RegisterSuccessModal.jsx";
-import { authorize, register, getUserInfo } from "../../utils/auth.js";
-import { getSearchResult } from "../../utils/newsAPI.js";
-import { keywordContext } from "../../contexts/keywordContext.js";
-import { hasSearchedContext } from "../../contexts/hasSearchedContext.js";
-import { currentUserContext } from "../../contexts/currentUserContext.js";
-import { savedArticlesContext } from "../../contexts/savedArticlesContext";
+import RegisterModal from "../../../version-2_news_explorer/src/components/RegisterModal/RegisterModal.jsx";
+import LoginModal from "../../../version-2_news_explorer/src/components/LoginModal/LoginModal.jsx";
+import RegisterSuccessModal from "../../../version-2_news_explorer/src/components/RegisterSuccessModal/RegisterSuccessModal.jsx";
+import { getUserInfo, authorize, register } from "../../../version-2_news_explorer/src/utils/auth.js";
+import { getSearchResult } from "../../../version-2_news_explorer/src/utils/newsAPI.js";
+import { KeywordContext } from "../../../version-2_news_explorer/src/contexts/KeywordContext.js";
+import { HasSearchedContext } from "../../../version-2_news_explorer/src/contexts/HasSearchedContext.js";
+import { CurrentUserContext } from "../../../version-2_news_explorer/src/contexts/CurrentUserContext.js";
+import { SavedArticlesContext } from "../../../version-2_news_explorer/src/contexts/SavedArticlesContext.js";
 
-import { searchResultContext } from "../../contexts/searchResultContext.js";
-import Main from "../Main/Main.jsx";
+import { SearchResultContext } from "../../../version-2_news_explorer/src/contexts/SearchResultContext.js";
+import Main from "../../../version-2_news_explorer/src/components/Main/Main.jsx";
 import {
-  getSavedArticles,
+  getSavedArticle,
   removeSavedArticle,
   addSavedArticle,
-} from "../../utils/savedArticlesApi.js";
-import SavedNews from "../SavedNews/SavedNews";
-import ProtectedRoute from "../ProtectedRoute/ProtectedRoute.jsx";
-import * as tokenValue from "../../utils/token.js";
+} from "../../../version-2_news_explorer/src/utils/savedArticlesApi.js";
+import SavedNews from "../../../version-2_news_explorer/src/components/SavedNews/SavedNews.jsx";
+import * as tokenValue from "../../../version-2_news_explorer/src/utils/token.js";
 function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [searchResult, setSearchResult] = useState([]);
+  const [searchResult, setSearchResult] = useState([
+    {
+      _id: "65f7368dfb74bd6a92114c85",
+      author: "author",
+      title: "title",
+      description: "description",
+      url: "https://example.com",
+      urlToImage: "https://image.com",
+      publishedAt: "2025-10-01T19:45:48Z",
+      content: "content",
+      source: "source",
+      keyword: "keyword",
+    },
+  ]);
 
   const [hasSearched, setHasSearched] = useState(false);
   const [searchError, setSearchError] = useState(false);
   const [keyWord, setKeyWord] = useState("");
-  const [savedArticles, setSavedArticles] = useState([]);
+  const [savedArticles, setSavedArticles] = useState([
+    {
+      _id: "65f7368dfb74bd6a92114c85",
+      author: "author",
+      title: "title",
+      description: "description",
+      url: "https://example.com",
+      urlToImage: "https://image.com",
+      publishedAt: "2025-10-01T19:45:48Z",
+      content: "content",
+      source: "source",
+      keyWord: "keyword",
+    },
+  ]);
   const [activeModal, setActiveModal] = useState("");
   const [currentUser, setCurrentUser] = useState({
     name: "",
@@ -44,7 +69,9 @@ function App() {
     getSearchResult(keyWord)
       .then((res) => {
         console.log(res);
-        setSearchResult(res.articles);
+        setSearchResult(res.articles.map((article) => {
+          return {...article, keyWord }
+        }));
         setHasSearched(true);
 
         setSearchError(false);
@@ -76,12 +103,17 @@ function App() {
 
   const handleLogout = () => {
     setIsLoggedIn(false);
+    setCurrentUser({
+      name: "",
+      email: "",
+      _id: "",
+    });
+    tokenValue.removeToken();
   };
-
-  const handleSignUp = ({ username, email, password}) => {
-    register( username, email, password)
+// I added the new {} after trying to update on 11/09/2025
+  const handleSignUp = ({ username, email, password }) => {
+    return register(username, email, password)
       .then((res) => {
-       
         setCurrentUser({
           name: res.data.username,
           email: res.data.email,
@@ -95,30 +127,25 @@ function App() {
       });
   };
 
-  const handleSignIn = ({ email, password }) => {
-    authorize(email, password )
+  const handleSignIn = (email, password) => {
+     if (!email || !password) {
+      return;
+    }
+    return authorize(email, password)
       .then((data) => {
-        
-          tokenValue.setToken(data.token); //storing token in localStorage
-   return getUserInfo(data.token)
-     .then((userData) => {
-       console.log(userData);
-            setCurrentUser({
-             
-              name:  userData.data.username,
-              email:  userData.data.email,
-              _id:  userData.data._id,
-            });
-            setIsLoggedIn(true);
-            onClose();
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+        tokenValue.setToken(data.token); 
+        return getUserInfo(data.token).then((res) => {
+          setIsLoggedIn(true);
+
+           setCurrentUser({
+          name: res.data.username,
+          email: res.data.email,
+          _id: res.data._id,
+        });
+          
+        });
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      
   };
 
   const handleRemoveArticle = ({ newsData }) => {
@@ -134,10 +161,11 @@ function App() {
       });
   };
 
-  const handleSaveArticle = ({ newsData, keyword }) => {
+  const handleSaveArticle = ({ newsData, keyWord }) => {
     if (!savedArticles.find((article) => article.link === newsData.url)) {
-      addSavedArticle(newsData, keyword)
+      addSavedArticle(newsData, keyWord)
         .then((res) => {
+          console.log(res);
           setSavedArticles([res, ...savedArticles]);
           const savedArticlesId = res._id;
           const newArticle = { ...newsData, _id: savedArticlesId };
@@ -165,25 +193,30 @@ function App() {
     }
   };
 
-  // useEffect(() => {
-  //   checkToken()
-  //     .then((res) => {
-  //       if (res) {
-  //         setCurrentUser(res.data);
-  //         getSavedArticles()
-  //           .then((res) => {
-  //             setSavedArticles(res);
-  //           })
-  //           .catch((err) => {
-  //             console.log(err);
-  //           });
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     })
-  //     .finally(() => {});
-  // }, [isLoggedIn]);
+  useEffect(() => {
+    const jwt = tokenValue.getToken();
+     if (!jwt) {
+      return;
+    }
+     getUserInfo(jwt)
+    .then((res) => {
+         
+      setCurrentUser({...res.data, name:res.data.username });
+      setIsLoggedIn(true);
+          getSavedArticle(jwt)
+            .then((res) => {
+              setSavedArticles(res.data);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {});
+  }, [isLoggedIn]);
 
   useEffect(() => {
     const handleEscClose = (e) => {
@@ -210,18 +243,18 @@ function App() {
   }, []);
 
   return (
-    <hasSearchedContext.Provider value={{ hasSearched, setHasSearched }}>
-      <keywordContext.Provider value={{ keyWord, setKeyWord }}>
-        <currentUserContext.Provider value={{ isLoggedIn, currentUser }}>
-          <savedArticlesContext.Provider
+    <HasSearchedContext.Provider value={{ hasSearched, setHasSearched }}>
+      <KeywordContext.Provider value={{ keyWord, setKeyWord }}>
+        <CurrentUserContext.Provider value={{ isLoggedIn, currentUser }}>
+          <SavedArticlesContext.Provider
             value={{ savedArticles, setSavedArticles }}
           >
-            <searchResultContext.Provider
+            <SearchResultContext.Provider
               value={{ searchResult, setSearchResult }}
             >
               <div className="page">
                 <div className="page__content">
-                  <BrowserRouter>
+                  <BrowserRouter basename="/final-project-news-explorer">
                     <Routes>
                       <Route
                         path="/"
@@ -242,11 +275,9 @@ function App() {
                       <Route
                         path="/saved-news"
                         element={
-                          <ProtectedRoute isLoggedIn={isLoggedIn}>
-                            <SavedNews
-                              handleRemoveArticle={handleRemoveArticle}
-                            />
-                          </ProtectedRoute>
+                          <SavedNews
+                            handleRemoveArticle={handleRemoveArticle}
+                          />
                         }
                       />
                     </Routes>
@@ -277,11 +308,11 @@ function App() {
                   />
                 </div>
               </div>
-            </searchResultContext.Provider>
-          </savedArticlesContext.Provider>
-        </currentUserContext.Provider>
-      </keywordContext.Provider>
-    </hasSearchedContext.Provider>
+            </SearchResultContext.Provider>
+          </SavedArticlesContext.Provider>
+        </CurrentUserContext.Provider>
+      </KeywordContext.Provider>
+    </HasSearchedContext.Provider>
   );
 }
 export default App;

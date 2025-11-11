@@ -2,25 +2,25 @@ import { useState, useEffect } from "react";
 import "./App.css";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 
-import RegisterModal from "../../../version-2_news_explorer/src/components/RegisterModal/RegisterModal.jsx";
-import LoginModal from "../../../version-2_news_explorer/src/components/LoginModal/LoginModal.jsx";
-import RegisterSuccessModal from "../../../version-2_news_explorer/src/components/RegisterSuccessModal/RegisterSuccessModal.jsx";
-import { getUserInfo, authorize, register } from "../../../version-2_news_explorer/src/utils/auth.js";
-import { getSearchResult } from "../../../version-2_news_explorer/src/utils/newsAPI.js";
-import { KeywordContext } from "../../../version-2_news_explorer/src/contexts/KeywordContext.js";
-import { HasSearchedContext } from "../../../version-2_news_explorer/src/contexts/HasSearchedContext.js";
-import { CurrentUserContext } from "../../../version-2_news_explorer/src/contexts/CurrentUserContext.js";
-import { SavedArticlesContext } from "../../../version-2_news_explorer/src/contexts/SavedArticlesContext.js";
+import RegisterModal from "../RegisterModal/RegisterModal.jsx";
+import LoginModal from "../LoginModal/LoginModal.jsx";
+import RegisterSuccessModal from "../RegisterSuccessModal/RegisterSuccessModal.jsx";
+import { getUserInfo, authorize, register } from "../../utils/auth.js";
+import { getSearchResult } from "../../utils/newsAPI.js";
+import { keywordContext } from "../../contexts/keywordContext.js";
+import { hasSearchedContext } from "../../contexts/hasSearchedContext.js";
+import { currentUserContext } from "../../contexts/currentUserContext.js";
+import { savedArticlesContext } from "../../contexts/savedArticlesContext.js";
 
-import { SearchResultContext } from "../../../version-2_news_explorer/src/contexts/SearchResultContext.js";
-import Main from "../../../version-2_news_explorer/src/components/Main/Main.jsx";
+import { searchResultContext } from "../../contexts/searchResultContext.js";
+import Main from "../../components/Main/Main.jsx";
 import {
   getSavedArticle,
   removeSavedArticle,
   addSavedArticle,
-} from "../../../version-2_news_explorer/src/utils/savedArticlesApi.js";
-import SavedNews from "../../../version-2_news_explorer/src/components/SavedNews/SavedNews.jsx";
-import * as tokenValue from "../../../version-2_news_explorer/src/utils/token.js";
+} from "../../utils/savedArticlesApi.js";
+import SavedNews from "../../components/SavedNews/SavedNews.jsx";
+import * as tokenValue from "../../utils/token.js";
 function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -69,9 +69,11 @@ function App() {
     getSearchResult(keyWord)
       .then((res) => {
         console.log(res);
-        setSearchResult(res.articles.map((article) => {
-          return {...article, keyWord }
-        }));
+        setSearchResult(
+          res.articles.map((article) => {
+            return { ...article, keyWord };
+          })
+        );
         setHasSearched(true);
 
         setSearchError(false);
@@ -110,7 +112,7 @@ function App() {
     });
     tokenValue.removeToken();
   };
-// I added the new {} after trying to update on 11/09/2025
+  // I added the new {} after trying to update on 11/09/2025
   const handleSignUp = ({ username, email, password }) => {
     return register(username, email, password)
       .then((res) => {
@@ -128,24 +130,21 @@ function App() {
   };
 
   const handleSignIn = (email, password) => {
-     if (!email || !password) {
+    if (!email || !password) {
       return;
     }
-    return authorize(email, password)
-      .then((data) => {
-        tokenValue.setToken(data.token); 
-        return getUserInfo(data.token).then((res) => {
-          setIsLoggedIn(true);
+    return authorize(email, password).then((data) => {
+      tokenValue.setToken(data.token);
+      return getUserInfo(data.token).then((res) => {
+        setIsLoggedIn(true);
 
-           setCurrentUser({
+        setCurrentUser({
           name: res.data.username,
           email: res.data.email,
           _id: res.data._id,
         });
-          
-        });
-      })
-      
+      });
+    });
   };
 
   const handleRemoveArticle = ({ newsData }) => {
@@ -195,22 +194,20 @@ function App() {
 
   useEffect(() => {
     const jwt = tokenValue.getToken();
-     if (!jwt) {
+    if (!jwt) {
       return;
     }
-     getUserInfo(jwt)
-    .then((res) => {
-         
-      setCurrentUser({...res.data, name:res.data.username });
-      setIsLoggedIn(true);
-          getSavedArticle(jwt)
-            .then((res) => {
-              setSavedArticles(res.data);
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        
+    getUserInfo(jwt)
+      .then((res) => {
+        setCurrentUser({ ...res.data, name: res.data.username });
+        setIsLoggedIn(true);
+        getSavedArticle(jwt)
+          .then((res) => {
+            setSavedArticles(res.data);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       })
       .catch((err) => {
         console.log(err);
@@ -243,13 +240,13 @@ function App() {
   }, []);
 
   return (
-    <HasSearchedContext.Provider value={{ hasSearched, setHasSearched }}>
-      <KeywordContext.Provider value={{ keyWord, setKeyWord }}>
-        <CurrentUserContext.Provider value={{ isLoggedIn, currentUser }}>
-          <SavedArticlesContext.Provider
+    <hasSearchedContext.Provider value={{ hasSearched, setHasSearched }}>
+      <keywordContext.Provider value={{ keyWord, setKeyWord }}>
+        <currentUserContext.Provider value={{ isLoggedIn, currentUser }}>
+          <savedArticlesContext.Provider
             value={{ savedArticles, setSavedArticles }}
           >
-            <SearchResultContext.Provider
+            <searchResultContext.Provider
               value={{ searchResult, setSearchResult }}
             >
               <div className="page">
@@ -308,11 +305,11 @@ function App() {
                   />
                 </div>
               </div>
-            </SearchResultContext.Provider>
-          </SavedArticlesContext.Provider>
-        </CurrentUserContext.Provider>
-      </KeywordContext.Provider>
-    </HasSearchedContext.Provider>
+            </searchResultContext.Provider>
+          </savedArticlesContext.Provider>
+        </currentUserContext.Provider>
+      </keywordContext.Provider>
+    </hasSearchedContext.Provider>
   );
 }
 export default App;

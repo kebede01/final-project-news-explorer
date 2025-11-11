@@ -1,34 +1,32 @@
-import { hasSearchedContext } from "../../contexts/hasSearchedContext"
-// import { KeyWordContext } from "../../contexts/KeywordContext"
-import { searchResultContext } from "../../contexts/searchResultContext"
-import Header from "../Header/Header"
-import Preloader from "../Preloader/Preloader"
-import About from "../About/About"
-import NotFound from "../NotFound/NotFound"
-import NewsCardList from "../NewsCardList/NewsCardList"
-import Footer from "../Footer/Footer"
+import { hasSearchedContext } from "../../contexts/hasSearchedContext";
+// import { KeyWordContext } from "../../contexts/keywordContext"
+import { searchResultContext } from "../../contexts/searchResultContext";
+import Header from "../Header/Header";
+import Preloader from "../Preloader/Preloader";
+import About from "../About/About";
+import NotFound from "../NotFound/NotFound";
+import NewsCardList from "../NewsCardList/NewsCardList";
+import Footer from "../Footer/Footer";
 import { useContext } from "react";
 
 function Main({
- handleSearch,
+  handleSearch,
   onLoginClick,
   onLogout,
 
-   searchError,
+  searchError,
   isLoading,
- handleRemoveArticle,
+  handleRemoveArticle,
   handleSaveArticle,
 }) {
   const { searchResult } = useContext(searchResultContext);
   const { hasSearched } = useContext(hasSearchedContext);
- 
 
   return (
     <>
       <Header
         onLoginClick={onLoginClick}
         onLogout={onLogout}
-      
         handleSearch={handleSearch}
       />
       <main className="main">
@@ -54,7 +52,7 @@ function Main({
           )}
         </div>
         <About />
-        <Footer/>
+        <Footer />
       </main>
     </>
   );

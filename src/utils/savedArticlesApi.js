@@ -1,7 +1,7 @@
 import { getToken } from "./token";
 import { BASE_URL } from "./constants.js";
 // import { APIKey, newsApiBaseUrl, parsePreviousWeek } from "./constants";
-export async function getSavedArticles(token) {
+export async function getSavedArticle(token) {
   const response = await fetch(`${BASE_URL}/articles`, {
     headers: {
       Authorization: `Bearer ${token}`,

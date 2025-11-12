@@ -25,7 +25,7 @@ export async function addSavedArticle(newsData, keyWord) {
     urlToImage: newsData.urlToImage,
     publishedAt: newsData.publishedAt,
     content: newsData.content || newsData.description,
-    source: newsData.source.name,
+    source: newsData.source["name"],
     keyWord: keyWord,
   };
   const response = await fetch(`${BASE_URL}/articles`, {

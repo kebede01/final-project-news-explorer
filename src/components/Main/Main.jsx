@@ -28,6 +28,7 @@ function Main({
         onLoginClick={onLoginClick}
         onLogout={onLogout}
         handleSearch={handleSearch}
+        
       />
       <main className="main">
         <div className="main__content">

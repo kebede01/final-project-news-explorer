@@ -51,6 +51,7 @@ function Navigation({ onLoginClick, onLogout }) {
                   ? "navigation__link black"
                   : "navigation__link"
               }
+             
             >
               Saved articles
             </NavLink>

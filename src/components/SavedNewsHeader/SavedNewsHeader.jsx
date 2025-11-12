@@ -10,13 +10,14 @@ function SavedNewsHeader() {
   const userArticles = savedArticles.filter(
     (article) => article.owner === currentUser._id
   );
-  const keywordArray = userArticles.map((article) => article?.keyword);
+  const keywordArray = userArticles.map((article) => article?.keyWord);
   const capitalizedFirstLetter = keywordArray.map((string) => {
     return string?.charAt(0).toUpperCase() + string?.slice(1);
   });
 
   const getKeywordString = (keyWord) => {
     const uniqueKeywords = [...new Set(keyWord)];
+    // console.log(`Unique keywords: ${uniqueKeywords}`);
     if (uniqueKeywords.length <= 2) {
       return uniqueKeywords.join(", ");
     } else {

@@ -129,7 +129,7 @@ function App() {
       });
   };
 
-  const handleSignIn = (email, password) => {
+  const handleSignIn = ({ email, password }) => {
     if (!email || !password) {
       return;
     }
@@ -160,11 +160,11 @@ function App() {
       });
   };
 
-  const handleSaveArticle = ({ newsData, keyWord }) => {
+  const handleSaveArticle = ( newsData, keyWord ) => {
     if (!savedArticles.find((article) => article.link === newsData.url)) {
       addSavedArticle(newsData, keyWord)
         .then((res) => {
-          console.log(res);
+          console.log(`ADD SAVED ARTICLES: ${res}`);
           setSavedArticles([res, ...savedArticles]);
           const savedArticlesId = res._id;
           const newArticle = { ...newsData, _id: savedArticlesId };
@@ -274,6 +274,7 @@ function App() {
                         element={
                           <SavedNews
                             handleRemoveArticle={handleRemoveArticle}
+                            
                           />
                         }
                       />

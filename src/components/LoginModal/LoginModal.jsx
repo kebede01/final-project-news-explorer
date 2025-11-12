@@ -38,7 +38,10 @@ function LoginModal({
     onClose();
     // setEmail("");
     // setPassword("");
-    setData("");
+    setData({
+    email: "",
+    password: "",
+  });
   };
   return (
     <ModalWithForm

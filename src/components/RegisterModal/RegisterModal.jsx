@@ -38,7 +38,11 @@ function RegisterModal({ onClose, isOpen, title, onLoginClick, onRegister }) {
         // setUsername("");
         // setEmail("");
         // setPassword("");
-        setData("");
+        setData({
+    username: "",
+    email: "",
+    password: ""
+    });
       })
       .catch((err) => {
         console.log(err);
@@ -91,7 +95,7 @@ function RegisterModal({ onClose, isOpen, title, onLoginClick, onRegister }) {
           type="text"
           name="username"
           id="username-1"
-          value={data.username}
+          value={data.username }
           // onChange={handleNameRegister}
           onChange={handleChange}
           placeholder="Username"

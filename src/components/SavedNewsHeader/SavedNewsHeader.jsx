@@ -17,7 +17,7 @@ function SavedNewsHeader() {
 
   const getKeywordString = (keyWord) => {
     const uniqueKeywords = [...new Set(keyWord)];
-    // console.log(`Unique keywords: ${uniqueKeywords}`);
+   
     if (uniqueKeywords.length <= 2) {
       return uniqueKeywords.join(", ");
     } else {

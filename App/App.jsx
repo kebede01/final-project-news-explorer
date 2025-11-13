@@ -43,7 +43,7 @@ function App() {
     setIsLoading(true);
     getSearchResult(keyWord)
       .then((res) => {
-        console.log(res);
+       
         setSearchResult(res.articles);
         setHasSearched(true);
 
@@ -91,7 +91,7 @@ function App() {
         handleSuccessModal();
       })
       .catch((err) => {
-        console.log(err);
+        
       });
   };
 
@@ -114,16 +114,16 @@ function App() {
         }
       })
       .catch((err) => {
-        console.log(err);
+        
       });
       
     // .catch((err) => {
-    //   console.log(err);
+    // 
     // });
     // tokenValue.setToken(data.token); //storing token in localStorage
     //  return getUserInfo(data.token)
     //    .then((userData) => {
-    //      console.log(userData);
+    //     
     // setCurrentUser({
              
     //   name:  userData.data.username,
@@ -142,8 +142,8 @@ function App() {
     // });
     };
 
-    const handleRemoveArticle = ({ newsData }) => {
-      removeSavedArticle(newsData)
+  const handleRemoveArticle = ({ newsData }) => {
+     removeSavedArticle(newsData)
         .then(() => {
           const unsavedNewsArticles = savedArticles.filter(
             (article) => article._id !== newsData._id
@@ -203,7 +203,7 @@ function App() {
              setIsLoggedIn(true);
             getSavedArticles(jwt)
               .then((res) => {
-                if (!res) { console.log("NO RESPONSE"); }
+              
                 setSavedArticles(res);
               })
               .catch((err) => {

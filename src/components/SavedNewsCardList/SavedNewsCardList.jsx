@@ -8,7 +8,7 @@ function SavedNewsCardList({ handleRemoveArticle, handleSaveArticle}) {
   const { savedArticles } = useContext(savedArticlesContext);
   const { currentUser } = useContext(currentUserContext);
 
-  console.log(currentUser)
+
   return (
     <section className="news-card-list">
       <div className="news-card-list__container">

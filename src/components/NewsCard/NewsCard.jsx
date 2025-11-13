@@ -12,7 +12,7 @@ function NewsCard({
   onClick,
 }) {
   let formattedDate;
-  console.log(`NEWS DATA IS ${JSON.stringify(newsData)}`);
+  
   if (newsData.publishedAt) {
     formattedDate = new Date(newsData.publishedAt).toLocaleDateString(
       "default",
@@ -32,7 +32,7 @@ function NewsCard({
   const { keyWord } = useContext(keywordContext);
   const { isLoggedIn } = useContext(currentUserContext);
   const [isHovered, setIsHovered] = useState(false);
-  console.log({ keyWord });
+ 
 
   const handleBookmarkClick = () => {
     handleSaveArticle(newsData, keyWord);

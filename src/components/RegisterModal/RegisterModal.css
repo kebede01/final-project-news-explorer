@@ -21,7 +21,7 @@
   background-color: #e8e8e8;
 }
 
-.register-modal__start-button{
+.register-modal__start-button {
   color: #2f71e5;
   border: none;
   cursor: pointer;
@@ -40,39 +40,31 @@
   opacity: 60%;
 }
 
-@media screen and (max-width: 768px){
-.register-modal__register-button{
- max-width: 280px;
+@media screen and (max-width: 768px) {
+  .register-modal__register-button {
+    max-width: 280px;
     height: 64px;
     font-size: 16px;
     margin-top: 20px;
     padding: 20px;
-
   }
 
- .register-modal__start-button {
+  .register-modal__start-button {
     font-size: 12px;
     margin-top: 15px;
     max-width: 280px;
   }
 }
 
-@media screen and (max-width: 320px){
-    /* .modal{
-    max-width: 250px;
-    width: 100%;
-    margin: 0 auto;
-    padding: 20px;
-  } */
-
-    .register-modal__start-button {
+@media screen and (max-width: 320px) {
+  .register-modal__start-button {
     font-size: 16px;
     margin-top: 15px;
     max-width: 200px;
-   padding: 10px;
-   margin-left: 15px;
+    padding: 10px;
+    margin-left: 15px;
   }
- .register-modal__register-button {
+  .register-modal__register-button {
     max-width: 200px;
     height: 64px;
     font-size: 16px;
@@ -81,7 +73,3 @@
     margin-left: 15px;
   }
 }
-
-
-
-

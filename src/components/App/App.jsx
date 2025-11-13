@@ -240,13 +240,13 @@ function App() {
   }, []);
 
   return (
-    <hasSearchedContext.Provider value={{ hasSearched, setHasSearched }}>
-      <keywordContext.Provider value={{ keyWord, setKeyWord }}>
-        <currentUserContext.Provider value={{ isLoggedIn, currentUser }}>
-          <savedArticlesContext.Provider
+    <HasSearchedContext.Provider value={{ hasSearched, setHasSearched }}>
+      <KeywordContext.Provider value={{ keyWord, setKeyWord }}>
+        <CurrentUserContext.Provider value={{ isLoggedIn, currentUser }}>
+          <SavedArticlesContext.Provider
             value={{ savedArticles, setSavedArticles }}
           >
-            <searchResultContext.Provider
+            <SearchResultContext.Provider
               value={{ searchResult, setSearchResult }}
             >
               <div className="page">
@@ -306,11 +306,11 @@ function App() {
                   />
                 </div>
               </div>
-            </searchResultContext.Provider>
-          </savedArticlesContext.Provider>
-        </currentUserContext.Provider>
-      </keywordContext.Provider>
-    </hasSearchedContext.Provider>
+            </SearchResultContext.Provider>
+          </SavedArticlesContext.Provider>
+        </CurrentUserContext.Provider>
+      </KeywordContext.Provider>
+    </HasSearchedContext.Provider>
   );
 }
 export default App;

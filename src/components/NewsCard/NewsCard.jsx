@@ -46,6 +46,10 @@ function NewsCard({
     (savedArticle) => savedArticle.link === newsData.url
   );
 
+  const isAlreadySaved = savedArticles.some(
+    (savedArticle) => savedArticle.link === newsData.url
+  );
+  console.log(keyWord);
   return (
     <section className="news-card">
       {/* Controls container */}

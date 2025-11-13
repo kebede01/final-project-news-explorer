@@ -1,9 +1,6 @@
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import "./LoginModal.css";
 import { useState } from "react";
-// import { useEffect, useContext } from "react";
-// import { useForm } from "../../Hooks/useForm";
-// import { currentUserContext } from "../../contexts/currentUserContext";
 
 function LoginModal({
   onClose,
@@ -51,7 +48,7 @@ function LoginModal({
       onSubmit={handleSubmit}
       buttonText={"or Log in"}
     >
-      <label htmlFor="email" className="modal__label">
+      <label htmlFor="email-2" className="modal__label">
         Email
         <input
           className="modal__input "
@@ -63,9 +60,10 @@ function LoginModal({
            onChange={handleChange}
           placeholder="Email"
           required
+          autoComplete="username"
         />
       </label>
-      <label htmlFor="password" className="modal__label">
+      <label htmlFor="password-2" className="modal__label">
         Password
         <input
           className="modal__input"
@@ -76,7 +74,9 @@ function LoginModal({
           // onChange={handlePassword}
           onChange={handleChange}
           placeholder="Password"
+          minLength={6}
           required
+          autoComplete="current-password"
         />
       </label>
 

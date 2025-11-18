@@ -91,18 +91,20 @@ function App() {
         handleSuccessModal();
       })
       .catch((err) => {
-        
+         console.log(err);
       });
   };
 
   const handleSignIn = ({ email, password }) => {
+    console.log(email, password);
     if (!email || !password) {
     return;
   }
     authorize(email, password)
       .then((data) => {
-        if (data.jwt) {
-          tokenValue.setToken(data.jwt);
+        if (data) {
+          console.log(`DATA IS : ${data}`);
+          tokenValue.setToken(data.token);
           setCurrentUser({
              
             name: data.data.username,
@@ -114,7 +116,7 @@ function App() {
         }
       })
       .catch((err) => {
-        
+         console.log(err);
       });
       
     // .catch((err) => {

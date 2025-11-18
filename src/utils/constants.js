@@ -25,4 +25,7 @@ export const newsApiBaseUrl =
     ? "https://nomoreparties.co/news/v2/everything"
     : "https://newsapi.org/v2/everything";
 
- export const BASE_URL = "http://localhost:3001" ;
+export const BASE_URL =  process.env.NODE_ENV === "production"
+    ? "https://api.newsexplorerfinal.jumpingcrab.com"
+    : "http://localhost:3002";
+ 

@@ -16,7 +16,7 @@ export const getUserInfo = (token) => {
   // Send a GET request to /users/me
   return fetch(`${BASE_URL}/users/me`, {
     method: "GET",
-    credentials: 'include',
+    //  credentials: 'include',
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",

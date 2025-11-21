@@ -119,30 +119,7 @@ function App() {
          console.log(err);
       });
       
-    // .catch((err) => {
-    // 
-    // });
-    // tokenValue.setToken(data.token); //storing token in localStorage
-    //  return getUserInfo(data.token)
-    //    .then((userData) => {
-    //     
-    // setCurrentUser({
-             
-    //   name:  userData.data.username,
-    //   email:  userData.data.email,
-    //   _id:  userData.data._id,
-    // });
-    // setIsLoggedIn(true);
-    // onClose();
-    // })
-    //     .catch((err) => {
-    //       console.log(err);
-    //     });
-    // })
-    // .catch((err) => {
-    //   console.log(err);
-    // });
-    };
+  };
 
   const handleRemoveArticle = ({ newsData }) => {
      removeSavedArticle(newsData)

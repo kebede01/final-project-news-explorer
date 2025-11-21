@@ -25,13 +25,7 @@ export const authorize = (email, password) => {
     body: JSON.stringify({ email, password }),
   }).then(checkResponse);
 };
-// export const register = () => {
-//   return new Promise((resolve, reject) => {
-//     resolve({
-//       data: { name: "fake user", email: "test@example.com", id: "fake ID" },
-//     });
-//   });
-// };
+
 export const register = (username, email, password) => {
   return fetch(`${BASE_URL}/signup`, {
     method: "POST",

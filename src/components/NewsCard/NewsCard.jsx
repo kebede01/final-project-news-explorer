@@ -30,7 +30,7 @@ function NewsCard({
 
   const { savedArticles } = useContext(SavedArticlesContext);
   const { keyWord } = useContext(KeyWordContext);
-  const { isLoggedIn } = useContext(currentUserContext);
+  const { isLoggedIn } = useContext(CurrentUserContext);
   const [isHovered, setIsHovered] = useState(false);
 
   const handleBookmarkClick = () => {

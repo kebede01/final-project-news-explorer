@@ -9,7 +9,7 @@ const SavedNews = ({ handleRemoveArticle }) => {
       <Navigation />
       <section className="saved-news">
         <SavedNewsHeader />
-        <SavedNewsCardList handleRemoveArticle={handleRemoveArticle} />
+        <SavedNewsCardList handleRemoveArticle={handleRemoveArticle}  />
       </section>
     </>
   );

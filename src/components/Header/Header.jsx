@@ -2,7 +2,7 @@ import "./Header.css";
 import Navigation from "../Navigation/Navigation";
 import SearchForm from "../SearchForm/SearchForm";
 
-function Header({  onLoginClick, onLogout , handleSearch}) {
+function Header({  onLoginClick, onLogout , handleSearch, handleSaveArticle}) {
   return (
     <>
       <header className="header">
@@ -10,6 +10,7 @@ function Header({  onLoginClick, onLogout , handleSearch}) {
           <Navigation 
             onLoginClick={onLoginClick}
             onLogout={onLogout}
+           
             
           />
         </div>

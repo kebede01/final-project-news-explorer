@@ -1,8 +1,8 @@
 import "./NewsCardList.css";
 import NewsCard from "../NewsCard/NewsCard";
 import { useState, useContext } from "react";
-import { searchResultContext } from "../../contexts/searchResultContext";
-import { hasSearchedContext } from "../../contexts/hasSearchedContext";
+import { SearchResultContext } from "../../contexts/SearchResultContext";
+import { HasSearchedContext } from "../../contexts/HasSearchedContext";
 
 const NewsCardList = ({
   handleSaveArticle,
@@ -11,8 +11,8 @@ const NewsCardList = ({
 }) => {
   const [cardsDisplayed, setCardsDisplayed] = useState(3);
 
-  const { searchResult } = useContext(searchResultContext);
-  const { hasSearched } = useContext(hasSearchedContext);
+  const { searchResult } = useContext(SearchResultContext);
+  const { hasSearched } = useContext(HasSearchedContext);
 
   const increaseVisibleCards = () => {
     setCardsDisplayed(cardsDisplayed + 3);

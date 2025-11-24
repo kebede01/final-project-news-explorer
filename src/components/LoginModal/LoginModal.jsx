@@ -13,20 +13,35 @@ function LoginModal({
   onRegisterClick,
   onLogIn,
 }) {
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
-  const handleEmail = (e) => {
-    setEmail(e.target.value);
-  };
-  const handlePassword = (e) => {
-    setPassword(e.target.value);
+  // const [email, setEmail] = useState();
+  // const [password, setPassword] = useState();
+   const [data, setData] = useState({
+    email: "",
+    password: "",
+  });
+  // const handleEmail = (e) => {
+  //   setEmail(e.target.value);
+  // };
+  // const handlePassword = (e) => {
+  //   setPassword(e.target.value);
+  // };
+    const handleChange = (e) => {
+    const { name, value } = e.target;
+    setData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    onLogIn(email, password);
+    onLogIn(data);
     onClose();
-    setEmail("");
-    setPassword("");
+    // setEmail("");
+    // setPassword("");
+    setData({
+    email: "",
+    password: "",
+  });
   };
   return (
     <ModalWithForm
@@ -43,8 +58,9 @@ function LoginModal({
           type="email"
           name="email"
           id="email"
-          value={email}
-          onChange={handleEmail}
+          value={data.email}
+          // onChange={handleEmail}
+           onChange={handleChange}
           placeholder="Email"
           required
         />
@@ -56,8 +72,9 @@ function LoginModal({
           type="password"
           name="password"
           id="password"
-          value={password}
-          onChange={handlePassword}
+          value={data.password}
+          // onChange={handlePassword}
+          onChange={handleChange}
           placeholder="Password"
           required
         />

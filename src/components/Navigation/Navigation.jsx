@@ -4,10 +4,10 @@ import { NavLink } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import logOutWhite from "../../assets/logout_white.svg";
 import logOutBlack from "../../assets/logout_black.svg";
-import { currentUserContext } from "../../contexts/currentUserContext";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
 function Navigation({ onLoginClick, onLogout }) {
-  const { currentUser, isLoggedIn } = useContext(currentUserContext);
+  const { currentUser, isLoggedIn } = useContext(CurrentUserContext);
   const location = useLocation();
 
   return (
@@ -51,6 +51,7 @@ function Navigation({ onLoginClick, onLogout }) {
                   ? "navigation__link black"
                   : "navigation__link"
               }
+             
             >
               Saved articles
             </NavLink>

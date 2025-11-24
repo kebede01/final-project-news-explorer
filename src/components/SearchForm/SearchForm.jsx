@@ -2,11 +2,11 @@ import "./SearchForm.css";
 // import { useEffect } from 'react';
 
 import { useContext } from "react";
-import { KeywordContext } from "../../contexts/KeywordContext";
+import { KeyWordContext } from "../../contexts/KeyWordContext";
 import { HasSearchedContext } from "../../contexts/HasSearchedContext";
 
 function SearchForm({ handleSearch }) {
-  const { keyWord, setKeyWord } = useContext(KeywordContext);
+  const { keyWord, setKeyWord } = useContext(KeyWordContext);
   const { setHasSearched } = useContext(HasSearchedContext);
 
   const handleSubmit = (event) => {

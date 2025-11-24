@@ -1,3 +1,3 @@
 import React from "react";
 
-export  const KeywordContext = React.createContext();
+export  const KeyWordContext = React.createContext();

@@ -5,8 +5,8 @@ import { SavedArticlesContext } from "../../contexts/SavedArticlesContext";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
 function SavedNewsCardList({ handleRemoveArticle, handleSaveArticle}) {
-  const { savedArticles } = useContext(savedArticlesContext);
-  const { currentUser } = useContext(currentUserContext);
+  const { savedArticles } = useContext(SavedArticlesContext);
+  const { currentUser } = useContext(CurrentUserContext);
 
 
   return (

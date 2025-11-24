@@ -1,8 +1,8 @@
 import "./NewsCard.css";
 import { useLocation } from "react-router-dom";
-import { keywordContext } from "../../contexts/keywordContext.js";
-import { savedArticlesContext } from "../../contexts/savedArticlesContext";
-import { currentUserContext } from "../../contexts/currentUserContext";
+import { KeyWordContext } from "../../contexts/KeyWordContext.js";
+import { SavedArticlesContext } from "../../contexts/SavedArticlesContext";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import { useContext, useState } from "react";
 
 function NewsCard({
@@ -12,7 +12,7 @@ function NewsCard({
   onClick,
 }) {
   let formattedDate;
-  
+
   if (newsData.publishedAt) {
     formattedDate = new Date(newsData.publishedAt).toLocaleDateString(
       "default",
@@ -28,12 +28,11 @@ function NewsCard({
 
   const location = useLocation();
 
-  const { savedArticles } = useContext(savedArticlesContext);
-  const { keyWord } = useContext(keywordContext);
-  const { isLoggedIn } = useContext(currentUserContext);
+  const { savedArticles } = useContext(SavedArticlesContext);
+  const { keyWord } = useContext(KeyWordContext);
+  const { isLoggedIn } = useContext(CurrentUserContext);
   const [isHovered, setIsHovered] = useState(false);
- 
-
+  console.log(savedArticles, newsData);
   const handleBookmarkClick = () => {
     handleSaveArticle(newsData, keyWord);
   };
@@ -42,12 +41,12 @@ function NewsCard({
     handleRemoveArticle(newsData);
   };
 
-  const isAlreadySaved = savedArticles.some(
-    (savedArticle) => savedArticle.link === newsData.url
-  );
+  // const isAlreadySaved = savedArticles.some(
+  //   (savedArticle) => savedArticle.link === newsData.url
+  // );
 
   const isAlreadySaved = savedArticles.some(
-    (savedArticle) => savedArticle.link === newsData.url
+    (savedArticle) => savedArticle.url === newsData.url
   );
   console.log(keyWord);
   return (
@@ -90,9 +89,10 @@ function NewsCard({
             </div>
             <button
               className={`news-card__button-bookmark ${
-                savedArticles.some(
-                  (savedArticles) => savedArticles.link === newsData.url
-                )
+                isAlreadySaved 
+                // savedArticles.some(
+                //   (savedArticles) => savedArticles.link === newsData.url
+                // )
                   ? "news-card__button-bookmark_marked"
                   : ""
               }`}

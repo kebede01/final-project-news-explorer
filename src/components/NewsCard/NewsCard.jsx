@@ -1,8 +1,8 @@
 import "./NewsCard.css";
 import { useLocation } from "react-router-dom";
 import { KeyWordContext } from "../../contexts/KeyWordContext.js";
-import { SavedArticlesContext } from "../../contexts/SavedArticlesContext.js";
-import { CurrentUserContext } from "../../contexts/CurrentUserContext.js";
+import { SavedArticlesContext } from "../../contexts/SavedArticlesContext";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import { useContext, useState } from "react";
 
 function NewsCard({
@@ -41,10 +41,14 @@ function NewsCard({
     handleRemoveArticle(newsData);
   };
 
-  const isAlreadySaved = savedArticles.some(
-    (savedArticle) => savedArticle.link === newsData.url
-  );
+  // const isAlreadySaved = savedArticles.some(
+  //   (savedArticle) => savedArticle.link === newsData.url
+  // );
 
+  const isAlreadySaved = savedArticles.some(
+    (savedArticle) => savedArticle.url === newsData.url
+  );
+  console.log(keyWord);
   return (
     <section className="news-card">
       {/* Controls container */}
@@ -85,9 +89,10 @@ function NewsCard({
             </div>
             <button
               className={`news-card__button-bookmark ${
-                savedArticles.some(
-                  (savedArticles) => savedArticles.link === newsData.url
-                )
+                isAlreadySaved 
+                // savedArticles.some(
+                //   (savedArticles) => savedArticles.link === newsData.url
+                // )
                   ? "news-card__button-bookmark_marked"
                   : ""
               }`}

@@ -4,7 +4,7 @@ import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import { SavedArticlesContext } from "../../contexts/SavedArticlesContext";
 
 function SavedNewsHeader() {
-  const { currentUser } = useContext(currentUserContext);
+  const { currentUser } = useContext(CurrentUserContext);
   const { savedArticles } = useContext(SavedArticlesContext);
 
   const userArticles = savedArticles.filter(

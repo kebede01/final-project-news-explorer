@@ -1,5 +1,5 @@
 import { HasSearchedContext } from "../../contexts/HasSearchedContext";
-// import { KeyWordContext } from "../../contexts/KeyWordContext"
+// import { KeyWordContext } from "../../contexts/keywordContext"
 import { SearchResultContext } from "../../contexts/SearchResultContext";
 import Header from "../Header/Header";
 import Preloader from "../Preloader/Preloader";

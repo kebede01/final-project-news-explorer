@@ -4,9 +4,10 @@ import NewsCard from "../NewsCard/NewsCard";
 import { SavedArticlesContext } from "../../contexts/SavedArticlesContext";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
-function SavedNewsCardList({ handleRemoveArticle, handleSaveArticle }) {
+function SavedNewsCardList({ handleRemoveArticle, handleSaveArticle}) {
   const { savedArticles } = useContext(SavedArticlesContext);
-  const { currentUser } = useContext(currentUserContext);
+  const { currentUser } = useContext(CurrentUserContext);
+
 
   return (
     <section className="news-card-list">

@@ -1,8 +1,7 @@
 import SavedNewsHeader from "../SavedNewsHeader/SavedNewsHeader";
 import SavedNewsCardList from "../SavedNewsCardList/SavedNewsCardList";
 import Navigation from "../Navigation/Navigation";
-
-
+import Footer from "../Footer/Footer";
 const SavedNews = ({ handleRemoveArticle }) => {
   return (
     <>

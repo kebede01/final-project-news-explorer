@@ -10,7 +10,6 @@ const NewsCardList = ({
   onLoginClick,
 }) => {
   const [cardsDisplayed, setCardsDisplayed] = useState(3);
-
   const { searchResult } = useContext(SearchResultContext);
   const { hasSearched } = useContext(HasSearchedContext);
 

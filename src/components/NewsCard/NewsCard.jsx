@@ -41,10 +41,6 @@ function NewsCard({
     handleRemoveArticle(newsData);
   };
 
-  // const isAlreadySaved = savedArticles.some(
-  //   (savedArticle) => savedArticle.link === newsData.url
-  // );
-
   const isAlreadySaved = savedArticles.some(
     (savedArticle) => savedArticle.url === newsData.url
   );
@@ -89,12 +85,7 @@ function NewsCard({
             </div>
             <button
               className={`news-card__button-bookmark ${
-                isAlreadySaved 
-                // savedArticles.some(
-                //   (savedArticles) => savedArticles.link === newsData.url
-                // )
-                  ? "news-card__button-bookmark_marked"
-                  : ""
+                isAlreadySaved ? "news-card__button-bookmark_marked" : ""
               }`}
               onClick={isAlreadySaved ? handleRemoveClick : handleBookmarkClick}
               onMouseEnter={() => setIsHovered(true)}

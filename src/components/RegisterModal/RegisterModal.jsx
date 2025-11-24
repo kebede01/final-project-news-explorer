@@ -6,23 +6,9 @@ function RegisterModal({ onClose, isOpen, title, onLoginClick, onRegister }) {
   const [data, setData] = useState({
     username: "",
     email: "",
-    password: ""
-    })
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
-  // const [username, setUsername] = useState("");
+    password: "",
+  });
 
-  // const handleNameRegister = (e) => {
-  //   setUsername(e.target.value);
-  // };
-
-  // const handleEmailRegister = (e) => {
-  //   setEmail(e.target.value);
-  // };
-
-  // const handlePasswordRegister = (e) => {
-  //   setPassword(e.target.value);
-  // };
   const handleChange = (e) => {
     const { name, value } = e.target;
     setData((prevData) => ({
@@ -32,17 +18,17 @@ function RegisterModal({ onClose, isOpen, title, onLoginClick, onRegister }) {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    // I added data. and onChange={handleChange} after trying to update
+
     onRegister(data)
-      .then(() => {
-        // setUsername("");
-        // setEmail("");
-        // setPassword("");
-        setData({
-    username: "",
-    email: "",
-    password: ""
-    });
+      .then((res) => {
+        if (res) {
+          setData({
+          username: "",
+          email: "",
+          password: "",
+        });
+        }
+      
       })
       .catch((err) => {
         console.log(err);
@@ -65,8 +51,7 @@ function RegisterModal({ onClose, isOpen, title, onLoginClick, onRegister }) {
           name="email"
           id="email-1"
           value={data.email}
-          // onChange={handleEmailRegister}
-           onChange={handleChange}
+          onChange={handleChange}
           placeholder="Email"
           required
           autoComplete="email"
@@ -81,7 +66,6 @@ function RegisterModal({ onClose, isOpen, title, onLoginClick, onRegister }) {
           id="password-1"
           value={data.password}
           minLength={6}
-          // onChange={handlePasswordRegister}
           onChange={handleChange}
           placeholder="Password"
           required
@@ -95,8 +79,7 @@ function RegisterModal({ onClose, isOpen, title, onLoginClick, onRegister }) {
           type="text"
           name="username"
           id="username-1"
-          value={data.username }
-          // onChange={handleNameRegister}
+          value={data.username}
           onChange={handleChange}
           placeholder="Username"
           minLength={2}

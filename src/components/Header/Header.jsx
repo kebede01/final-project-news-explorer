@@ -2,7 +2,7 @@ import "./Header.css";
 import Navigation from "../Navigation/Navigation";
 import SearchForm from "../SearchForm/SearchForm";
 
-function Header({  onLoginClick, onLogout , handleSearch, handleSaveArticle}) {
+function Header({  onLoginClick, onLogout , handleSearch}) {
   return (
     <>
       <header className="header">

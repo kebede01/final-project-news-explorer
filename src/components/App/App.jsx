@@ -132,9 +132,12 @@ function App() {
     if (!email || !password) {
       return;
     }
-    return authorize(email, password).then((data) => {
-      tokenValue.setToken(data.token);
-      return getUserInfo(data.token).then((res) => {
+    return authorize(email, password)
+      .then((data) => {
+        tokenValue.setToken(data.token);
+        return getUserInfo(data.token);
+      })
+      .then((res) => {
         setIsLoggedIn(true);
 
         setCurrentUser({
@@ -142,8 +145,10 @@ function App() {
           email: res.data.email,
           _id: res.data._id,
         });
+      })
+      .catch((err) => {
+        console.error("Login failed:", err);
       });
-    });
   };
 
   const handleRemoveArticle = (newsData) => {

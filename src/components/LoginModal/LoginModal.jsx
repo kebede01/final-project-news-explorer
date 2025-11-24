@@ -3,7 +3,7 @@ import "./LoginModal.css";
 import { useState } from "react";
 // import { useEffect, useContext } from "react";
 // import { useForm } from "../../Hooks/useForm";
-// import { currentUserContext } from "../../contexts/currentUserContext";
+// import { CurrentUserContext } from "../../contexts/currentUserContext";
 
 function LoginModal({
   onClose,
@@ -15,7 +15,7 @@ function LoginModal({
 }) {
   // const [email, setEmail] = useState();
   // const [password, setPassword] = useState();
-   const [data, setData] = useState({
+  const [data, setData] = useState({
     email: "",
     password: "",
   });
@@ -25,7 +25,7 @@ function LoginModal({
   // const handlePassword = (e) => {
   //   setPassword(e.target.value);
   // };
-    const handleChange = (e) => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
     setData((prevData) => ({
       ...prevData,
@@ -39,9 +39,9 @@ function LoginModal({
     // setEmail("");
     // setPassword("");
     setData({
-    email: "",
-    password: "",
-  });
+      email: "",
+      password: "",
+    });
   };
   return (
     <ModalWithForm
@@ -60,7 +60,7 @@ function LoginModal({
           id="email"
           value={data.email}
           // onChange={handleEmail}
-           onChange={handleChange}
+          onChange={handleChange}
           placeholder="Email"
           required
         />

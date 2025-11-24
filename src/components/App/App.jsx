@@ -7,12 +7,12 @@ import LoginModal from "../LoginModal/LoginModal.jsx";
 import RegisterSuccessModal from "../RegisterSuccessModal/RegisterSuccessModal.jsx";
 import { getUserInfo, authorize, register } from "../../utils/auth.js";
 import { getSearchResult } from "../../utils/newsAPI.js";
-import { keywordContext } from "../../contexts/keywordContext.js";
-import { hasSearchedContext } from "../../contexts/hasSearchedContext.js";
-import { currentUserContext } from "../../contexts/currentUserContext.js";
-import { savedArticlesContext } from "../../contexts/savedArticlesContext.js";
+import { KeyWordContext } from "../../contexts/KeyWordContext.js";
+import { HasSearchedContext } from "../../contexts/HasSearchedContext.js";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext.js";
+import { SavedArticlesContext } from "../../contexts/SavedArticlesContext.js";
 
-import { searchResultContext } from "../../contexts/searchResultContext.js";
+import { SearchResultContext } from "../../contexts/SearchResultContext.js";
 import Main from "../../components/Main/Main.jsx";
 import {
   getSavedArticle,
@@ -68,7 +68,6 @@ function App() {
     setIsLoading(true);
     getSearchResult(keyWord)
       .then((res) => {
-       
         setSearchResult(
           res.articles.map((article) => {
             return { ...article, keyWord };
@@ -147,24 +146,23 @@ function App() {
     });
   };
 
-  const handleRemoveArticle = ( newsData ) => {
+  const handleRemoveArticle = (newsData) => {
     removeSavedArticle(newsData)
       .then(() => {
         const unsavedNewsArticles = savedArticles.filter(
           (article) => article._id !== newsData._id
         );
-       setSavedArticles(unsavedNewsArticles);
+        setSavedArticles(unsavedNewsArticles);
       })
       .catch((err) => {
         console.log(err);
       });
   };
 
-  const handleSaveArticle = ( newsData, keyWord ) => {
+  const handleSaveArticle = (newsData, keyWord) => {
     if (!savedArticles.find((article) => article.link === newsData.url)) {
       addSavedArticle(newsData, keyWord)
         .then((res) => {
-         
           setSavedArticles([res, ...savedArticles]);
           const savedArticlesId = res._id;
           const newArticle = { ...newsData, _id: savedArticlesId };
@@ -240,18 +238,18 @@ function App() {
   }, []);
 
   return (
-    <hasSearchedContext.Provider value={{ hasSearched, setHasSearched }}>
-      <keywordContext.Provider value={{ keyWord, setKeyWord }}>
-        <currentUserContext.Provider value={{ isLoggedIn, currentUser }}>
-          <savedArticlesContext.Provider
+    <HasSearchedContext.Provider value={{ hasSearched, setHasSearched }}>
+      <KeyWordContext.Provider value={{ keyWord, setKeyWord }}>
+        <CurrentUserContext.Provider value={{ isLoggedIn, currentUser }}>
+          <SavedArticlesContext.Provider
             value={{ savedArticles, setSavedArticles }}
           >
-            <searchResultContext.Provider
+            <SearchResultContext.Provider
               value={{ searchResult, setSearchResult }}
             >
               <div className="page">
                 <div className="page__content">
-                  <BrowserRouter >
+                  <BrowserRouter>
                     <Routes>
                       <Route
                         path="/"
@@ -274,7 +272,6 @@ function App() {
                         element={
                           <SavedNews
                             handleRemoveArticle={handleRemoveArticle}
-                            
                           />
                         }
                       />
@@ -306,11 +303,11 @@ function App() {
                   />
                 </div>
               </div>
-            </searchResultContext.Provider>
-          </savedArticlesContext.Provider>
-        </currentUserContext.Provider>
-      </keywordContext.Provider>
-    </hasSearchedContext.Provider>
+            </SearchResultContext.Provider>
+          </SavedArticlesContext.Provider>
+        </CurrentUserContext.Provider>
+      </KeyWordContext.Provider>
+    </HasSearchedContext.Provider>
   );
 }
 export default App;

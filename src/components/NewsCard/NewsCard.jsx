@@ -1,8 +1,8 @@
 import "./NewsCard.css";
 import { useLocation } from "react-router-dom";
-import { keywordContext } from "../../contexts/keywordContext.js";
-import { savedArticlesContext } from "../../contexts/savedArticlesContext";
-import { currentUserContext } from "../../contexts/currentUserContext";
+import { KeyWordContext } from "../../contexts/KeyWordContext.js";
+import { SavedArticlesContext } from "../../contexts/SavedArticlesContext.js";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext.js";
 import { useContext, useState } from "react";
 
 function NewsCard({
@@ -12,7 +12,7 @@ function NewsCard({
   onClick,
 }) {
   let formattedDate;
-  
+
   if (newsData.publishedAt) {
     formattedDate = new Date(newsData.publishedAt).toLocaleDateString(
       "default",
@@ -28,11 +28,10 @@ function NewsCard({
 
   const location = useLocation();
 
-  const { savedArticles } = useContext(savedArticlesContext);
-  const { keyWord } = useContext(keywordContext);
+  const { savedArticles } = useContext(SavedArticlesContext);
+  const { keyWord } = useContext(KeyWordContext);
   const { isLoggedIn } = useContext(currentUserContext);
   const [isHovered, setIsHovered] = useState(false);
- 
 
   const handleBookmarkClick = () => {
     handleSaveArticle(newsData, keyWord);

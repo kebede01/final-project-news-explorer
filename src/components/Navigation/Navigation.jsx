@@ -4,29 +4,30 @@ import { NavLink } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import logOutWhite from "../../assets/logout_white.svg";
 import logOutBlack from "../../assets/logout_black.svg";
-import { currentUserContext } from "../../contexts/currentUserContext";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
 function Navigation({ onLoginClick, onLogout }) {
-  const { currentUser, isLoggedIn } = useContext(currentUserContext);
+  const { currentUser, isLoggedIn } = useContext(CurrentUserContext);
   const location = useLocation();
 
   return (
     <nav
       className={`navigation ${
-        location.pathname === "/saved-news" ? "navigation__link black" : "navigation__link"
+        location.pathname === "/saved-news"
+          ? "navigation__link black"
+          : "navigation__link"
       }`}
     >
       <div className="navigation__container">
         <p
           className={`${
-            location.pathname === "/saved-news" ? "navigation__link black " : "navigation__title "
+            location.pathname === "/saved-news"
+              ? "navigation__link black "
+              : "navigation__title "
           } `}
         >
           NewsExplorer
         </p>
- 
-
-      
       </div>
 
       <div className="navigation__menu ">
@@ -37,8 +38,7 @@ function Navigation({ onLoginClick, onLogout }) {
               location.pathname === "/saved-news"
                 ? "navigation__link black"
                 : "navigation__link"
-              } `}
-           
+            } `}
           >
             Home
           </NavLink>
@@ -51,7 +51,6 @@ function Navigation({ onLoginClick, onLogout }) {
                   ? "navigation__link black"
                   : "navigation__link"
               }
-             
             >
               Saved articles
             </NavLink>
@@ -72,7 +71,11 @@ function Navigation({ onLoginClick, onLogout }) {
                 {currentUser.name}
               </span>
               <img
-                src={location.pathname === "/saved-news" ? logOutBlack : logOutWhite}
+                src={
+                  location.pathname === "/saved-news"
+                    ? logOutBlack
+                    : logOutWhite
+                }
                 alt="logout"
                 className={`navigation__logout-icon `}
               />
@@ -80,7 +83,9 @@ function Navigation({ onLoginClick, onLogout }) {
           ) : (
             <button
               className={`navigation__button navigation__button_sign-in ${
-                location.pathname === "/saved-news" ? "navigation__saved_black" : ""
+                location.pathname === "/saved-news"
+                  ? "navigation__saved_black"
+                  : ""
               }`}
               onClick={onLoginClick}
             >

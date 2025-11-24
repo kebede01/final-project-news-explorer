@@ -1,13 +1,12 @@
 import "./SavedNewsCardList.css";
 import { useContext } from "react";
 import NewsCard from "../NewsCard/NewsCard";
-import { savedArticlesContext } from "../../contexts/savedArticlesContext";
-import { currentUserContext } from "../../contexts/currentUserContext";
+import { SavedArticlesContext } from "../../contexts/SavedArticlesContext";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
-function SavedNewsCardList({ handleRemoveArticle, handleSaveArticle}) {
-  const { savedArticles } = useContext(savedArticlesContext);
+function SavedNewsCardList({ handleRemoveArticle, handleSaveArticle }) {
+  const { savedArticles } = useContext(SavedArticlesContext);
   const { currentUser } = useContext(currentUserContext);
-
 
   return (
     <section className="news-card-list">

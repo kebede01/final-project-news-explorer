@@ -117,3 +117,8 @@
     height: 56px;
   }
 }
+@media screen and (max-width: 320px){
+.search-form__input {
+  margin-right: 20px;
+  }
+}

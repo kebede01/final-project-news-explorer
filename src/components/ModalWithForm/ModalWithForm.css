@@ -90,14 +90,9 @@
   color: rgba(0, 0, 0, 0.2);
 }
 
-@media screen and (max-width: 320px) {
-  .modal__content {
-    position: relative;
-    max-width: 280px;
-    width: 100%;
-    border-radius: 16px;
-    background-color: #fff;
-    box-sizing: border-box;
-    margin-right: 15px;
-  }
+.modal__error {
+  color: red;
+  margin-bottom: 10px;
+  font-size: 18px;
+  text-align: center;
 }

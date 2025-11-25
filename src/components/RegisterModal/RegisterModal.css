@@ -40,6 +40,10 @@
   opacity: 60%;
 }
 
+.error {
+  color: red;
+}
+
 @media screen and (max-width: 768px) {
   .register-modal__register-button {
     max-width: 280px;

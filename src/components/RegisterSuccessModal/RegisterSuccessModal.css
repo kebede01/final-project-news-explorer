@@ -20,13 +20,13 @@
 }
 
 .modal__title_type_success {
- font-family: "Roboto", Arial, sans-serif;
+  font-family: "Roboto", Arial, sans-serif;
   font-style: normal;
   color: rgba(0, 0, 0, 1);
   margin-top: 0;
   margin-left: 0;
   width: 315px;
-   font-family: "Roboto", Arial, sans-serif;
+  font-family: "Roboto", Arial, sans-serif;
   font-weight: 900;
   font-size: 24px;
   line-height: 100%;
@@ -45,9 +45,14 @@
   }
 
   .modal__content {
-    padding: 10px;
+    position: relative;
+    max-width: 200px;
+    width: 100%;
+    border-radius: 16px;
+    background-color: #fff;
+    margin-right: 25px;
   }
-  
+
   .modal__close-button {
     top: -35px;
     right: 3px;

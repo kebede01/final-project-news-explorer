@@ -11,6 +11,7 @@ import { KeyWordContext } from "../../contexts/KeyWordContext.js";
 import { HasSearchedContext } from "../../contexts/HasSearchedContext.js";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext.js";
 import { SavedArticlesContext } from "../../contexts/SavedArticlesContext.js";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute.jsx";
 
 import { SearchResultContext } from "../../contexts/SearchResultContext.js";
 import Main from "../../components/Main/Main.jsx";
@@ -103,13 +104,13 @@ function App() {
   };
 
   const handleLogout = () => {
+    tokenValue.removeToken();
     setIsLoggedIn(false);
     setCurrentUser({
       name: "",
       email: "",
       _id: "",
     });
-    tokenValue.removeToken();
   };
   // I added the new {} after trying to update on 11/09/2025
   const handleSignUp = ({ username, email, password }) => {
@@ -219,6 +220,7 @@ function App() {
   }, [isLoggedIn]);
 
   useEffect(() => {
+    if (!activeModal) return;
     const handleEscClose = (e) => {
       if (e.key === "Escape") {
         onClose();
@@ -228,9 +230,10 @@ function App() {
     return () => {
       document.removeEventListener("keydown", handleEscClose);
     };
-  }, []);
+  }, [activeModal]);
 
   useEffect(() => {
+    if (!activeModal) return;
     const handleOverlayClick = (e) => {
       if (e.target.classList.contains("modal")) {
         onClose();
@@ -240,7 +243,7 @@ function App() {
     return () => {
       document.removeEventListener("click", handleOverlayClick);
     };
-  }, []);
+  }, [activeModal]);
 
   return (
     <HasSearchedContext.Provider value={{ hasSearched, setHasSearched }}>
@@ -275,9 +278,11 @@ function App() {
                       <Route
                         path="/saved-news"
                         element={
-                          <SavedNews
-                            handleRemoveArticle={handleRemoveArticle}
-                          />
+                          <ProtectedRoute isLoggedIn={isLoggedIn}>
+                            <SavedNews
+                              handleRemoveArticle={handleRemoveArticle}
+                            />
+                          </ProtectedRoute>
                         }
                       />
                     </Routes>

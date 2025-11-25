@@ -1,31 +1,32 @@
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import "./LoginModal.css";
 import { useState } from "react";
+import { useFormAndValidation } from "../hooks/useFormAndValidation";
 
 function LoginModal({ onClose, isOpen, title, onRegisterClick, onLogIn }) {
-  const [data, setData] = useState({
-    email: "",
-    password: "",
-  });
+  const { values, handleChange, errors, isValid, resetForm } =
+    useFormAndValidation();
 
- const handleChange = (e) => {
-    const { name, value } = e.target;
-    setData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+  // NEW: local state for global error
+  const [formError, setFormError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false); // optional loading state
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    try {
+      await onLogIn(values);
+      resetForm({}, {}, true);
+      setFormError(""); // clear error on success
+      onClose();
+    } catch (err) {
+      console.log(err);
+      setFormError("Login failed. Please try again."); // show error
+    } finally {
+      setIsSubmitting(false);
+    }
   };
-
- const handleSubmit = async (e) => {
-  e.preventDefault();
-  try {
-    await onLogIn(data);
-    onClose();
-    setData({ email: "", password: "" });
-  } catch (err) {
-    console.error("Login error:", err);
-  }
-};
 
   return (
     <ModalWithForm
@@ -35,6 +36,7 @@ function LoginModal({ onClose, isOpen, title, onRegisterClick, onLogIn }) {
       onSubmit={handleSubmit}
       buttonText={"or Log in"}
     >
+      {formError && <div className="modal__error">{formError}</div>}
       <label htmlFor="email-2" className="modal__label">
         Email
         <input
@@ -42,12 +44,15 @@ function LoginModal({ onClose, isOpen, title, onRegisterClick, onLogIn }) {
           type="email"
           name="email"
           id="email"
-          value={data.email}
+          value={values.email}
           onChange={handleChange}
           placeholder="Email"
           required
           autoComplete="username"
         />
+        <span className="error" aria-live="polite">
+          {errors.email}
+        </span>
       </label>
       <label htmlFor="password-2" className="modal__label">
         Password
@@ -56,17 +61,24 @@ function LoginModal({ onClose, isOpen, title, onRegisterClick, onLogIn }) {
           type="password"
           name="password"
           id="password"
-          value={data.password}
+          value={values.password}
           onChange={handleChange}
           placeholder="Password"
           minLength={6}
           required
           autoComplete="current-password"
         />
+        <span className="error" aria-live="polite">
+          {errors.password}
+        </span>
       </label>
 
-      <button type="submit" className="register-modal__signin-button">
-        Sign in
+      <button
+        type="submit"
+        className="register-modal__signin-button"
+        disabled={!isValid}
+      >
+        {isSubmitting ? "Logging..." : "Log in"}
       </button>
       <button
         type="button"

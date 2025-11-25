@@ -76,7 +76,7 @@
     padding-left: 0px;
   }
 
-   .modal__close-button {
+  .modal__close-button {
     top: -50px;
     right: 3px;
   }
@@ -85,6 +85,7 @@
     font-size: 16px;
     margin-top: 15px;
     max-width: 200px;
+    margin-left: 0px;
     padding: 0;
   }
 

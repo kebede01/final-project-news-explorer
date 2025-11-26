@@ -18,8 +18,7 @@ const [isSubmitting, setIsSubmitting] = useState(false);
       .then(() => {
         resetForm({}, {}, true);
         setFormError(""); // clear error on success
-        onClose();
-      })
+        })
       .catch((err) => {
         console.log(err);
         setFormError("Registration failed. Please try again."); // show error

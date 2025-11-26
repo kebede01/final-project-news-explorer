@@ -17,7 +17,7 @@ function LoginModal({ onClose, isOpen, title, onRegisterClick, onLogIn }) {
 
     try {
       await onLogIn(values);
-      resetForm({}, {}, true);
+      resetForm({ email: "", password: "" }, true);
       setFormError(""); // clear error on success
       onClose();
     } catch (err) {

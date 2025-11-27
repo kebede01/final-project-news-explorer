@@ -98,12 +98,16 @@
 }
 
 @media screen and (max-width:320px){
+    .modal{
+      justify-content: flex-start;
+    }
    .modal__content {
         position: relative;
-        max-width: 220px;
+        max-width: 180px;
         width: 100%;
         border-radius: 16px;
         background-color: #fff;
-        }
+        margin-left: 22px;}
+  
   } 
 

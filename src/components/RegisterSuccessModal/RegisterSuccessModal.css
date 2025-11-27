@@ -42,15 +42,15 @@
 @media screen and (max-width: 320px) {
   .modal__content_type_success {
     font-size: 16px;
-  }
-
-  .modal__content {
-    position: relative;
-    max-width: 240px;
+    max-width: 230px;
     width: 100%;
     border-radius: 16px;
-    background-color: #fff;
- 
+    padding: 20px 36px 20px 20px;
+  }
+  .modal__title_type_success {
+    font-size: 24px;
+    width: 230px;
+    text-align: center;
   }
 
   .modal__close-button {

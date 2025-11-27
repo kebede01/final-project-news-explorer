@@ -46,6 +46,7 @@
     width: 100%;
     border-radius: 16px;
     padding: 20px 36px 20px 20px;
+    margin-left: 3px;
   }
   .modal__title_type_success {
     font-size: 24px;

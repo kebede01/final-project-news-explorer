@@ -8,23 +8,22 @@ function RegisterModal({ onClose, isOpen, title, onLoginClick, onRegister }) {
     useFormAndValidation();
   // NEW: local state for global error
   const [formError, setFormError] = useState("");
-const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-     setIsSubmitting(true);
+    setIsSubmitting(true);
 
     onRegister(values)
       .then(() => {
         resetForm({}, {}, true);
         setFormError(""); // clear error on success
-        })
+      })
       .catch((err) => {
         console.log(err);
         setFormError("Registration failed. Please try again."); // show error
       })
       .finally(() => setIsSubmitting(false));
-
   };
 
   return (
@@ -97,9 +96,7 @@ const [isSubmitting, setIsSubmitting] = useState(false);
         className="register-modal__register-button"
         disabled={!isValid}
       >
-       
-         {isSubmitting ? "Registering..." : "Sign up"}
-
+        {isSubmitting ? "Registering..." : "Sign up"}
       </button>
       <button
         type="button"

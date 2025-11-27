@@ -126,6 +126,7 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
+        throw new err();
       });
   };
 
@@ -149,6 +150,7 @@ function App() {
       })
       .catch((err) => {
         console.error("Login failed:", err);
+        throw new err();
       });
   };
 

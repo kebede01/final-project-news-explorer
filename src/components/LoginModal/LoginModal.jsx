@@ -1,33 +1,33 @@
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import "./LoginModal.css";
 import { useState } from "react";
-// import { useEffect, useContext } from "react";
-// import { useForm } from "../../Hooks/useForm";
-// import { currentUserContext } from "../../contexts/currentUserContext";
+import { useFormAndValidation } from "../hooks/useFormAndValidation";
 
-function LoginModal({
-  onClose,
-  isOpen,
-  title,
-  onLoginClick,
-  onRegisterClick,
-  onLogIn,
-}) {
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
-  const handleEmail = (e) => {
-    setEmail(e.target.value);
-  };
-  const handlePassword = (e) => {
-    setPassword(e.target.value);
-  };
-  const handleSubmit = (e) => {
+function LoginModal({ onClose, isOpen, title, onRegisterClick, onLogIn }) {
+  const { values, handleChange, errors, isValid, resetForm } =
+    useFormAndValidation();
+
+  // NEW: local state for global error
+  const [formError, setFormError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false); // optional loading state
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    onLogIn(email, password);
-    onClose();
-    setEmail("");
-    setPassword("");
+    setIsSubmitting(true);
+
+    try {
+      await onLogIn(values);
+      resetForm({ email: "", password: "" }, true);
+      setFormError(""); // clear error on success
+      onClose();
+    } catch (err) {
+      console.log(err);
+      setFormError("Login failed. Please try again."); // show error
+    } finally {
+      setIsSubmitting(false);
+    }
   };
+
   return (
     <ModalWithForm
       isOpen={isOpen}
@@ -36,35 +36,49 @@ function LoginModal({
       onSubmit={handleSubmit}
       buttonText={"or Log in"}
     >
-      <label htmlFor="email" className="modal__label">
+      {formError && <div className="modal__error">{formError}</div>}
+      <label htmlFor="email-2" className="modal__label">
         Email
         <input
           className="modal__input "
           type="email"
           name="email"
           id="email"
-          value={email}
-          onChange={handleEmail}
+          value={values.email}
+          onChange={handleChange}
           placeholder="Email"
           required
+          autoComplete="username"
         />
+        <span className="error" aria-live="polite">
+          {errors.email}
+        </span>
       </label>
-      <label htmlFor="password" className="modal__label">
+      <label htmlFor="password-2" className="modal__label">
         Password
         <input
           className="modal__input"
           type="password"
           name="password"
           id="password"
-          value={password}
-          onChange={handlePassword}
+          value={values.password}
+          onChange={handleChange}
           placeholder="Password"
+          minLength={6}
           required
+          autoComplete="current-password"
         />
+        <span className="error" aria-live="polite">
+          {errors.password}
+        </span>
       </label>
 
-      <button type="submit" className="register-modal__signin-button">
-        Sign in
+      <button
+        type="submit"
+        className="register-modal__signin-button"
+        disabled={!isValid}
+      >
+        {isSubmitting ? "Logging..." : "Log in"}
       </button>
       <button
         type="button"

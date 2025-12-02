@@ -2,33 +2,61 @@ import { useState, useEffect } from "react";
 import "./App.css";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 
-import RegisterModal from "../RegisterModal/RegisterModal";
+import RegisterModal from "../RegisterModal/RegisterModal.jsx";
 import LoginModal from "../LoginModal/LoginModal.jsx";
 import RegisterSuccessModal from "../RegisterSuccessModal/RegisterSuccessModal.jsx";
-import { checkToken, authorize, register } from "../../utils/auth.js";
+import { getUserInfo, authorize, register } from "../../utils/auth.js";
 import { getSearchResult } from "../../utils/newsAPI.js";
-import { keywordContext } from "../../contexts/keywordContext.js";
-import { hasSearchedContext } from "../../contexts/hasSearchedContext.js";
-import { currentUserContext } from "../../contexts/currentUserContext.js";
-import { savedArticlesContext } from "../../contexts/savedArticlesContext";
+import { KeyWordContext } from "../../contexts/KeyWordContext.js";
+import { HasSearchedContext } from "../../contexts/HasSearchedContext.js";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext.js";
+import { SavedArticlesContext } from "../../contexts/SavedArticlesContext.js";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute.jsx";
 
-import { searchResultContext } from "../../contexts/searchResultContext.js";
-import Main from "../Main/Main.jsx";
+import { SearchResultContext } from "../../contexts/SearchResultContext.js";
+import Main from "../../components/Main/Main.jsx";
 import {
-  getSavedArticles,
+  getSavedArticle,
   removeSavedArticle,
   addSavedArticle,
 } from "../../utils/savedArticlesApi.js";
-import SavedNews from "../SavedNews/SavedNews";
+import SavedNews from "../../components/SavedNews/SavedNews.jsx";
+import * as tokenValue from "../../utils/token.js";
 function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [searchResult, setSearchResult] = useState([]);
+  const [searchResult, setSearchResult] = useState([
+    {
+      _id: "65f7368dfb74bd6a92114c85",
+      author: "author",
+      title: "title",
+      description: "description",
+      url: "https://example.com",
+      urlToImage: "https://image.com",
+      publishedAt: "2025-10-01T19:45:48Z",
+      content: "content",
+      source: "source",
+      keyword: "keyword",
+    },
+  ]);
 
   const [hasSearched, setHasSearched] = useState(false);
   const [searchError, setSearchError] = useState(false);
   const [keyWord, setKeyWord] = useState("");
-  const [savedArticles, setSavedArticles] = useState([]);
+  const [savedArticles, setSavedArticles] = useState([
+    {
+      _id: "65f7368dfb74bd6a92114c85",
+      author: "author",
+      title: "title",
+      description: "description",
+      url: "https://example.com",
+      urlToImage: "https://image.com",
+      publishedAt: "2025-10-01T19:45:48Z",
+      content: "content",
+      source: "source",
+      keyWord: "keyword",
+    },
+  ]);
   const [activeModal, setActiveModal] = useState("");
   const [currentUser, setCurrentUser] = useState({
     name: "",
@@ -41,8 +69,11 @@ function App() {
     setIsLoading(true);
     getSearchResult(keyWord)
       .then((res) => {
-        console.log(res);
-        setSearchResult(res.articles);
+        setSearchResult(
+          res.articles.map((article) => {
+            return { ...article, keyWord };
+          })
+        );
         setHasSearched(true);
 
         setSearchError(false);
@@ -73,14 +104,20 @@ function App() {
   };
 
   const handleLogout = () => {
+    tokenValue.removeToken();
     setIsLoggedIn(false);
+    setCurrentUser({
+      name: "",
+      email: "",
+      _id: "",
+    });
   };
-
-  const handleSignUp = () => {
-    register()
+  // I added the new {} after trying to update on 11/09/2025
+  const handleSignUp = ({ username, email, password }) => {
+    return register(username, email, password)
       .then((res) => {
         setCurrentUser({
-          name: res.data.name,
+          name: res.data.username,
           email: res.data.email,
           _id: res.data._id,
         });
@@ -89,32 +126,35 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
+        throw new err();
       });
   };
 
   const handleSignIn = ({ email, password }) => {
-    authorize({ email, password })
-      .then(() => {
-        checkToken()
-          .then((res) => {
-            setCurrentUser({
-              name: res.data.name,
-              email: res.data.email,
-              _id: res.data._id,
-            });
-            setIsLoggedIn(true);
-            onClose();
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+    if (!email || !password) {
+      return;
+    }
+    return authorize(email, password)
+      .then((data) => {
+        tokenValue.setToken(data.token);
+        return getUserInfo(data.token);
+      })
+      .then((res) => {
+        setIsLoggedIn(true);
+
+        setCurrentUser({
+          name: res.data.username,
+          email: res.data.email,
+          _id: res.data._id,
+        });
       })
       .catch((err) => {
-        console.log(err);
+        console.error("Login failed:", err);
+        throw new err();
       });
   };
 
-  const handleRemoveArticle = ({ newsData }) => {
+  const handleRemoveArticle = (newsData) => {
     removeSavedArticle(newsData)
       .then(() => {
         const unsavedNewsArticles = savedArticles.filter(
@@ -127,9 +167,9 @@ function App() {
       });
   };
 
-  const handleSaveArticle = ({ newsData, keyword }) => {
+  const handleSaveArticle = (newsData, keyWord) => {
     if (!savedArticles.find((article) => article.link === newsData.url)) {
-      addSavedArticle(newsData, keyword)
+      addSavedArticle(newsData, keyWord)
         .then((res) => {
           setSavedArticles([res, ...savedArticles]);
           const savedArticlesId = res._id;
@@ -159,18 +199,21 @@ function App() {
   };
 
   useEffect(() => {
-    checkToken()
+    const jwt = tokenValue.getToken();
+    if (!jwt) {
+      return;
+    }
+    getUserInfo(jwt)
       .then((res) => {
-        if (res) {
-          setCurrentUser(res.data);
-          getSavedArticles()
-            .then((res) => {
-              setSavedArticles(res);
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        }
+        setCurrentUser({ ...res.data, name: res.data.username });
+        setIsLoggedIn(true);
+        getSavedArticle(jwt)
+          .then((res) => {
+            setSavedArticles(res.data);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       })
       .catch((err) => {
         console.log(err);
@@ -179,6 +222,7 @@ function App() {
   }, [isLoggedIn]);
 
   useEffect(() => {
+    if (!activeModal) return;
     const handleEscClose = (e) => {
       if (e.key === "Escape") {
         onClose();
@@ -188,9 +232,10 @@ function App() {
     return () => {
       document.removeEventListener("keydown", handleEscClose);
     };
-  }, []);
+  }, [activeModal]);
 
   useEffect(() => {
+    if (!activeModal) return;
     const handleOverlayClick = (e) => {
       if (e.target.classList.contains("modal")) {
         onClose();
@@ -200,16 +245,16 @@ function App() {
     return () => {
       document.removeEventListener("click", handleOverlayClick);
     };
-  }, []);
+  }, [activeModal]);
 
   return (
-    <hasSearchedContext.Provider value={{ hasSearched, setHasSearched }}>
-      <keywordContext.Provider value={{ keyWord, setKeyWord }}>
-        <currentUserContext.Provider value={{ isLoggedIn, currentUser }}>
-          <savedArticlesContext.Provider
+    <HasSearchedContext.Provider value={{ hasSearched, setHasSearched }}>
+      <KeyWordContext.Provider value={{ keyWord, setKeyWord }}>
+        <CurrentUserContext.Provider value={{ isLoggedIn, currentUser }}>
+          <SavedArticlesContext.Provider
             value={{ savedArticles, setSavedArticles }}
           >
-            <searchResultContext.Provider
+            <SearchResultContext.Provider
               value={{ searchResult, setSearchResult }}
             >
               <div className="page">
@@ -235,9 +280,11 @@ function App() {
                       <Route
                         path="/saved-news"
                         element={
-                          <SavedNews
-                            handleRemoveArticle={handleRemoveArticle}
-                          />
+                          <ProtectedRoute isLoggedIn={isLoggedIn}>
+                            <SavedNews
+                              handleRemoveArticle={handleRemoveArticle}
+                            />
+                          </ProtectedRoute>
                         }
                       />
                     </Routes>
@@ -268,11 +315,11 @@ function App() {
                   />
                 </div>
               </div>
-            </searchResultContext.Provider>
-          </savedArticlesContext.Provider>
-        </currentUserContext.Provider>
-      </keywordContext.Provider>
-    </hasSearchedContext.Provider>
+            </SearchResultContext.Provider>
+          </SavedArticlesContext.Provider>
+        </CurrentUserContext.Provider>
+      </KeyWordContext.Provider>
+    </HasSearchedContext.Provider>
   );
 }
 export default App;

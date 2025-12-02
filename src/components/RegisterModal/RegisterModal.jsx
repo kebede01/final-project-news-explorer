@@ -1,40 +1,29 @@
 import "./RegisterModal.css";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import { useState } from "react";
-// import { useForm } from "../../Hooks/useForm";
-// import { currentUserContext } from "../../contexts/currentUserContext";
+import { useFormAndValidation } from "../hooks/useFormAndValidation";
 
-function RegisterModal({
-  onClose,
-  isOpen,
-  title,
-  onLoginClick,
-  onRegisterClick,
-  onRegister,
-}) {
-  const [emailRegister, setEmailRegister] = useState("");
-  const [passwordRegister, setPasswordRegister] = useState("");
-  const [nameRegister, setNameRegister] = useState("");
-
-  const handleNameRegister = (e) => {
-    setNameRegister(e.target.value);
-  };
-
-  const handleEmailRegister = (e) => {
-    setEmailRegister(e.target.value);
-  };
-
-  const handlePasswordRegister = (e) => {
-    setPasswordRegister(e.target.value);
-  };
+function RegisterModal({ onClose, isOpen, title, onLoginClick, onRegister }) {
+  const { values, handleChange, errors, isValid, resetForm } =
+    useFormAndValidation();
+  // NEW: local state for global error
+  const [formError, setFormError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onRegister(emailRegister, passwordRegister);
-    setNameRegister("");
-    setEmailRegister("");
-    setPasswordRegister("");
-    onClose();
+    setIsSubmitting(true);
+
+    onRegister(values)
+      .then(() => {
+        resetForm({}, {}, true);
+        setFormError(""); // clear error on success
+      })
+      .catch((err) => {
+        console.log(err);
+        setFormError("Registration failed. Please try again."); // show error
+      })
+      .finally(() => setIsSubmitting(false));
   };
 
   return (
@@ -45,51 +34,69 @@ function RegisterModal({
       buttonText={"or Log in"}
       onSubmit={handleSubmit}
     >
-      <label htmlFor="email" className="modal__label">
+      {/* Global error message */}
+      {formError && <div className="modal__error">{formError}</div>}
+
+      <label htmlFor="email-1" className="modal__label">
         Email
         <input
           className="modal__input "
           type="email"
           name="email"
-          id="email"
-          value={emailRegister}
-          onChange={handleEmailRegister}
+          id="email-1"
+          value={values.email || ""}
+          onChange={handleChange}
           placeholder="Email"
           required
+          autoComplete="email"
         />
+        <span className="error" aria-live="polite">
+          {errors.email}
+        </span>
       </label>
-      <label htmlFor="password" className="modal__label">
+      <label htmlFor="password-1" className="modal__label">
         Password
         <input
           className="modal__input"
           type="password"
           name="password"
-          id="password"
-          value={passwordRegister}
-          onChange={handlePasswordRegister}
+          id="password-1"
+          value={values.password || ""}
+          minLength={6}
+          onChange={handleChange}
           placeholder="Password"
           required
+          autoComplete="new-password"
         />
+        <span className="error" aria-live="polite">
+          {errors.password}
+        </span>
       </label>
-      <label htmlFor="username" className="modal__label">
+      <label htmlFor="username-1" className="modal__label">
         Username
         <input
           className="modal__input"
           type="text"
           name="username"
-          id="username"
-          value={nameRegister}
-          onChange={handleNameRegister}
+          id="username-1"
+          value={values.username || ""}
+          onChange={handleChange}
           placeholder="Username"
+          minLength={2}
+          maxLength={20}
           required
+          autoComplete="username"
         />
+        <span className="error" aria-live="polite">
+          {errors.username}
+        </span>
       </label>
       <button
         type="submit"
         className="register-modal__register-button"
-      
+        disabled={!isValid}
       >
-        Sign up
+        {isSubmitting ? "Registering..." : "Sign up"}
       </button>
       <button
         type="button"

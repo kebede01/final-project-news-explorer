@@ -1,22 +1,23 @@
 import "./SavedNewsHeader.css";
 import { useContext } from "react";
-import { currentUserContext } from "../../contexts/currentUserContext";
-import { savedArticlesContext } from "../../contexts/savedArticlesContext";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import { SavedArticlesContext } from "../../contexts/SavedArticlesContext";
 
 function SavedNewsHeader() {
-  const { currentUser } = useContext(currentUserContext);
-  const { savedArticles } = useContext(savedArticlesContext);
+  const { currentUser } = useContext(CurrentUserContext);
+  const { savedArticles } = useContext(SavedArticlesContext);
 
   const userArticles = savedArticles.filter(
     (article) => article.owner === currentUser._id
   );
-  const keywordArray = userArticles.map((article) => article?.keyword);
+  const keywordArray = userArticles.map((article) => article?.keyWord);
   const capitalizedFirstLetter = keywordArray.map((string) => {
     return string?.charAt(0).toUpperCase() + string?.slice(1);
   });
 
   const getKeywordString = (keyWord) => {
     const uniqueKeywords = [...new Set(keyWord)];
+
     if (uniqueKeywords.length <= 2) {
       return uniqueKeywords.join(", ");
     } else {

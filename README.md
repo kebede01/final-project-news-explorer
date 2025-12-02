@@ -1,10 +1,37 @@
-# React + Vite
+# newsexplorerfinal project
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## About
 
-Currently, two official plugins are available:
+The idea of the project is to make a call to a public news API, which responds with news articles relevant to a topic chosen by the user from the last week. Users can save articles they like, try various different topics, and collect their favorite news on one page.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-# git hub page link
-[https://kebede01.github.io/final-project-news-explorer/]
+## Technologies Used
+
+- React
+- BEM
+- React Router
+- Node.js
+- Vite
+- News API for news data
+
+## New Features
+
+- Registration and log in features are added.
+
+### The project's URL address
+
+[News Explorer](https://www.newsexplorerfinal.jumpingcrab.com/)
+
+### A link to the frontend github repo
+
+`https://github.com/kebede01/final-project-news-explorer`
+
+### A link to the backend github repo
+
+`https://github.com/kebede01/Express-back-end-final-project`
+
+## How to Run
+
+```bash
+npm install
+npm run dev
+```

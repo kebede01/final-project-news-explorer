@@ -55,26 +55,5 @@ export const removeSavedArticle = (newsData) => {
     return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
   });
 
-  //   const token = getToken();
 
-  // const response = await fetch(`${BASE_URL}/articles/${articleId}`, {
-  //   method: "DELETE",
-  //   headers: {
-  //     Authorization: `Bearer ${token}`,
-  //   },
-  // });
-
-  // if (!response.ok) {
-  //   throw new Error("Failed to remove article");
-  // }
-
-  // return response.json();
-  // return new Promise((resolve, reject) => {
-  //   const response = {
-  //     ok: true,
-  //     status: 200,
-  //     statusText: "OK",
-  //   };
-  //   resolve(response);
-  // });
 };

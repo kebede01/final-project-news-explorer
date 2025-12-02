@@ -1,52 +1,29 @@
 import "./RegisterModal.css";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import { useState } from "react";
+import { useFormAndValidation } from "../hooks/useFormAndValidation";
 
 function RegisterModal({ onClose, isOpen, title, onLoginClick, onRegister }) {
-  const [data, setData] = useState({
-    username: "",
-    email: "",
-    password: ""
-    })
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
-  // const [username, setUsername] = useState("");
+  const { values, handleChange, errors, isValid, resetForm } =
+    useFormAndValidation();
+  // NEW: local state for global error
+  const [formError, setFormError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // const handleNameRegister = (e) => {
-  //   setUsername(e.target.value);
-  // };
-
-  // const handleEmailRegister = (e) => {
-  //   setEmail(e.target.value);
-  // };
-
-  // const handlePasswordRegister = (e) => {
-  //   setPassword(e.target.value);
-  // };
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
   const handleSubmit = (e) => {
     e.preventDefault();
-    // I added data. and onChange={handleChange} after trying to update
-    onRegister(data)
+    setIsSubmitting(true);
+
+    onRegister(values)
       .then(() => {
-        // setUsername("");
-        // setEmail("");
-        // setPassword("");
-        setData({
-    username: "",
-    email: "",
-    password: ""
-    });
+        resetForm({}, {}, true);
+        setFormError(""); // clear error on success
       })
       .catch((err) => {
         console.log(err);
-      });
+        setFormError("Registration failed. Please try again."); // show error
+      })
+      .finally(() => setIsSubmitting(false));
   };
 
   return (
@@ -57,6 +34,9 @@ function RegisterModal({ onClose, isOpen, title, onLoginClick, onRegister }) {
       buttonText={"or Log in"}
       onSubmit={handleSubmit}
     >
+      {/* Global error message */}
+      {formError && <div className="modal__error">{formError}</div>}
+
       <label htmlFor="email-1" className="modal__label">
         Email
         <input
@@ -64,13 +44,15 @@ function RegisterModal({ onClose, isOpen, title, onLoginClick, onRegister }) {
           type="email"
           name="email"
           id="email-1"
-          value={data.email}
-          // onChange={handleEmailRegister}
-           onChange={handleChange}
+          value={values.email || ""}
+          onChange={handleChange}
           placeholder="Email"
           required
           autoComplete="email"
         />
+        <span className="error" aria-live="polite">
+          {errors.email}
+        </span>
       </label>
       <label htmlFor="password-1" className="modal__label">
         Password
@@ -79,14 +61,16 @@ function RegisterModal({ onClose, isOpen, title, onLoginClick, onRegister }) {
           type="password"
           name="password"
           id="password-1"
-          value={data.password}
+          value={values.password || ""}
           minLength={6}
-          // onChange={handlePasswordRegister}
           onChange={handleChange}
           placeholder="Password"
           required
           autoComplete="new-password"
         />
+        <span className="error" aria-live="polite">
+          {errors.password}
+        </span>
       </label>
       <label htmlFor="username-1" className="modal__label">
         Username
@@ -95,8 +79,7 @@ function RegisterModal({ onClose, isOpen, title, onLoginClick, onRegister }) {
           type="text"
           name="username"
           id="username-1"
-          value={data.username }
-          // onChange={handleNameRegister}
+          value={values.username || ""}
           onChange={handleChange}
           placeholder="Username"
           minLength={2}
@@ -104,9 +87,16 @@ function RegisterModal({ onClose, isOpen, title, onLoginClick, onRegister }) {
           required
           autoComplete="username"
         />
+        <span className="error" aria-live="polite">
+          {errors.username}
+        </span>
       </label>
-      <button type="submit" className="register-modal__register-button">
-        Sign up
+      <button
+        type="submit"
+        className="register-modal__register-button"
+        disabled={!isValid}
+      >
+        {isSubmitting ? "Registering..." : "Sign up"}
       </button>
       <button
         type="button"

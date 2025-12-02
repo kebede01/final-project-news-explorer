@@ -10,7 +10,6 @@
   font-style: normal;
   font-weight: 400;
   color: rgba(26, 27, 34, 0.5);
- 
 }
 
 .saved-news-header__subtitle {
@@ -61,7 +60,7 @@
 
 @media screen and (max-width: 400px) {
   .saved-news-header {
-    padding: 20px 10px;
+  
   }
 
   .saved-news-header__title {

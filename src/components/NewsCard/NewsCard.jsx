@@ -12,7 +12,7 @@ function NewsCard({
   onClick,
 }) {
   let formattedDate;
-  
+
   if (newsData.publishedAt) {
     formattedDate = new Date(newsData.publishedAt).toLocaleDateString(
       "default",
@@ -43,9 +43,9 @@ function NewsCard({
   };
 
   const isAlreadySaved = savedArticles.some(
-    (savedArticle) => savedArticle.link === newsData.url
+    (savedArticle) => savedArticle.url === newsData.url
   );
-
+  console.log(keyWord);
   return (
     <section className="news-card">
       {/* Controls container */}
@@ -86,11 +86,7 @@ function NewsCard({
             </div>
             <button
               className={`news-card__button-bookmark ${
-                savedArticles.some(
-                  (savedArticles) => savedArticles.link === newsData.url
-                )
-                  ? "news-card__button-bookmark_marked"
-                  : ""
+                isAlreadySaved ? "news-card__button-bookmark_marked" : ""
               }`}
               onClick={isAlreadySaved ? handleRemoveClick : handleBookmarkClick}
               onMouseEnter={() => setIsHovered(true)}

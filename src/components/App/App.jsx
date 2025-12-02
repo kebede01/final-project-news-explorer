@@ -260,7 +260,7 @@ function App() {
             >
               <div className="page">
                 <div className="page__content">
-                  <BrowserRouter basename="/final-project-news-explorer">
+                  <BrowserRouter>
                     <Routes>
                       <Route
                         path="/"
